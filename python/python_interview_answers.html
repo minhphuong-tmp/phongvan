@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giải Chi Tiết Bộ Câu Hỏi Phỏng Vấn Python & Django (52 Câu Lý Thuyết + 10 Bài Code + 5 Tình Huống)</title>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+    });
+  </script>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card: #1e293b;
+      --card-inner: #0f172a;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --green: #4ade80;
+      --yellow: #facc15;
+      --red: #f87171;
+      --purple: #c084fc;
+      --orange: #fb923c;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      padding: 24px 16px 100px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.68;
+    }
+    .container { max-width: 1240px; margin: 0 auto; }
+    h1 { font-size: 2rem; margin-bottom: 6px; color: #fff; }
+    h2 {
+      font-size: 1.45rem;
+      margin-top: 0;
+      margin-bottom: 14px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    h3 {
+      font-size: 1.18rem;
+      margin-top: 24px;
+      margin-bottom: 12px;
+      color: var(--yellow);
+      border-left: 4px solid var(--yellow);
+      padding-left: 10px;
+    }
+    .subtitle { color: var(--muted); font-size: 1.02rem; margin-bottom: 20px; }
+    .nav-bar {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+      position: sticky;
+      top: 8px;
+      z-index: 50;
+      background: rgba(11, 17, 32, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.5);
+    }
+    .nav-bar a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      transition: 0.15s;
+    }
+    .nav-bar a:hover { background: var(--accent); color: #0b1120; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .qa-block {
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+    .q-title {
+      font-weight: 700;
+      color: #fff;
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      background: rgba(56, 189, 248, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+    }
+    .a-box {
+      background: rgba(74, 222, 128, 0.06);
+      border-left: 4px solid var(--green);
+      padding: 12px 16px;
+      border-radius: 0 10px 10px 0;
+      margin: 10px 0;
+    }
+    .trap-box {
+      background: rgba(248, 113, 113, 0.09);
+      border-left: 4px solid var(--red);
+      padding: 12px 16px;
+      border-radius: 0 10px 10px 0;
+      margin: 10px 0;
+    }
+    .diagram-box {
+      background: #070b14;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 14px 0;
+      overflow-x: auto;
+    }
+    pre.code {
+      background: #070b14;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 16px;
+      color: #e2e8f0;
+      font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+      font-size: 0.87rem;
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(192, 132, 252, 0.15);
+      color: var(--purple);
+      border: 1px solid var(--purple);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.91rem;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+    }
+    th { background: #070b14; color: var(--accent); }
+    tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+    ul, ol { margin: 8px 0; padding-left: 20px; }
+    li { margin-bottom: 5px; }
+    code {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: #38bdf8;
+      font-family: "JetBrains Mono", Menlo, monospace;
+      font-size: 0.88em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🐍 Giải Chi Tiết Bộ Câu Hỏi Phỏng Vấn: Python & Django (<code>python.docx</code>)</h1>
+    <div class="subtitle">
+      Trọn bộ đáp án chuẩn phỏng vấn (từ Fresher/Junior đến Mid/Senior) cho toàn bộ <strong>52 câu hỏi lý thuyết</strong> + <strong>10 bài tập thực hành code</strong> + <strong>5 tình huống thực tế</strong> trong file <code>/Users/macos/Desktop/phongvan/python/python.docx</code> kèm sơ đồ Mermaid và bẫy phỏng vấn!
+    </div>
+
+    <!-- STICKY NAVIGATION -->
+    <div class="nav-bar">
+      <a href="#sec1-1">1.1 Kiểu dữ liệu (Câu 1–5)</a>
+      <a href="#sec1-2">1.2 Function & OOP (Câu 6–11)</a>
+      <a href="#sec1-3">1.3 Memory & Generator (Câu 12–16)</a>
+      <a href="#sec1-4">1.4 Exception & File (Câu 17–21)</a>
+      <a href="#sec1-5">1.5 GIL & Concurrency (Câu 22–25)</a>
+      <a href="#sec2-1">2.1 Django Kiến trúc (Câu 26–30)</a>
+      <a href="#sec2-2">2.2 Django ORM & DB (Câu 31–37)</a>
+      <a href="#sec2-3">2.3 View, Form, CSRF (Câu 38–42)</a>
+      <a href="#sec2-4">2.4 Admin, Auth, Middleware (Câu 43–46)</a>
+      <a href="#sec2-5">2.5 DRF, Security, Deploy (Câu 47–52)</a>
+      <a href="#sec3">3. Thực hành Python (Bài 1–5)</a>
+      <a href="#sec4">4. Thực hành Django (Bài 6–10)</a>
+      <a href="#sec5">5. Tình huống thực tế (1–5)</a>
+    </div>
+
+    <!-- ==========================================
+         PHẦN 1: PYTHON CORE (CÂU 1 - CÂU 25)
+         ========================================== -->
+    <div class="card" id="sec1-1">
+      <h2>1. Python Core <span class="tag">Câu 1 – Câu 25</span></h2>
+
+      <h3>1.1 Kiểu dữ liệu & Cú pháp cơ bản (Câu 1 – Câu 5)</h3>
+
+      <!-- Câu 1 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 1: Python là ngôn ngữ thông dịch (interpreted) hay biên dịch (compiled)? Giải thích.</div>
+        <div class="a-box">
+          <strong>✅ Trả lời chuẩn phỏng vấn:</strong>
+          Python thường được gọi là <strong>ngôn ngữ thông dịch (Interpreted language)</strong>, nhưng chính xác bên dưới nó đi qua <strong>cả 2 bước (Biên dịch sang Bytecode ➡️ Thông dịch trên máy ảo PVM)</strong>:
+          <ol>
+            <li><strong>Bước 1 (Compile sang Bytecode):</strong> Khi bạn chạy <code>python app.py</code>, Python tự động biên dịch mã nguồn <code>.py</code> thành <strong>Bytecode</strong> (lưu trong thư mục <code>__pycache__/*.pyc</code>).</li>
+            <li><strong>Bước 2 (Interpret trên Python Virtual Machine - PVM):</strong> Máy ảo <strong>PVM</strong> đọc từng dòng lệnh Bytecode và dịch sang mã máy (Machine Code) để CPU thực thi.</li>
+          </ol>
+          <ul>
+            <li><strong>Ưu điểm:</strong> Đa nền tảng (Write once, run anywhere), không cần bước build thủ công, dễ debug, kiểu dữ liệu động (Dynamic typing).</li>
+            <li><strong>Nhược điểm:</strong> Tốc độ thực thi thuần (CPU-bound) chậm hơn ngôn ngữ biên dịch trực tiếp ra mã máy như C/C++, Go, Rust.</li>
+          </ul>
+        </div>
+        <div class="diagram-box">
+          <pre class="mermaid">
+flowchart LR
+    Code["📄 Source Code (app.py)"] ==>|"1. Compiler"| Byte["⚙️ Bytecode (__pycache__/app.cpython-311.pyc)"]
+    Byte ==>|"2. Python Virtual Machine (PVM)<br/>(Đọc từng lệnh Bytecode)"| CPU["💻 CPU Thực Thi (Machine Code)"]
+
+    style Code fill:#1e3a8a,stroke:#60a5fa,color:#fff
+    style Byte fill:#854d0e,stroke:#facc15,color:#fff
+    style CPU fill:#166534,stroke:#4ade80,color:#fff
+          </pre>
+        </div>
+      </div>
+
+      <!-- Câu 2 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 2: Sự khác nhau giữa <code>list</code>, <code>tuple</code>, <code>set</code> và <code>dict</code> là gì?</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Tiêu chí</th>
+              <th><code>list</code> <code>[1, 2, 2]</code></th>
+              <th><code>tuple</code> <code>(1, 2, 2)</code></th>
+              <th><code>set</code> <code>{1, 2}</code></th>
+              <th><code>dict</code> <code>{"a": 1}</code></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Thay đổi được (Mutable)?</strong></td>
+              <td>✅ <strong>Mutable</strong> (Thêm/sửa/xóa được)</td>
+              <td>❌ <strong>Immutable</strong> (Không thể sửa sau khi tạo)</td>
+              <td>✅ <strong>Mutable</strong> (Nhưng phần tử bên trong phải Immutable/Hashable)</td>
+              <td>✅ <strong>Mutable</strong> (Key phải Immutable/Hashable, Value tùy ý)</td>
+            </tr>
+            <tr>
+              <td><strong>Giữ thứ tự (Ordered)?</strong></td>
+              <td>✅ Có (Truy cập qua index <code>a[0]</code>)</td>
+              <td>✅ Có (Truy cập qua index <code>t[0]</code>)</td>
+              <td>❌ Không có thứ tự (Không thể gọi <code>s[0]</code>)</td>
+              <td>✅ Có (Từ Python 3.7+ giữ nguyên thứ tự chèn)</td>
+            </tr>
+            <tr>
+              <td><strong>Cho phép trùng lặp?</strong></td>
+              <td>✅ Có</td>
+              <td>✅ Có</td>
+              <td>❌ Không (Tự động loại bỏ phần tử trùng)</td>
+              <td>❌ Key không được trùng (Value trùng được)</td>
+            </tr>
+            <tr>
+              <td><strong>Tốc độ tìm kiếm (<code>x in ...</code>)</strong></td>
+              <td>🐢 <strong>$O(N)$</strong> (Quét từng phần tử)</td>
+              <td>🐢 <strong>$O(N)$</strong> (Quét từng phần tử)</td>
+              <td>⚡ <strong>$O(1)$</strong> (Nhờ bảng băm Hash Table)</td>
+              <td>⚡ <strong>$O(1)$</strong> (Tra cứu theo Key qua Hash Table)</td>
+            </tr>
+            <tr>
+              <td><strong>Use Case thực tế</strong></td>
+              <td>Danh sách đơn hàng, giỏ hàng cần thêm/bớt phần tử</td>
+              <td>Tọa độ <code>(lat, lng)</code>, RGB <code>(255,0,0)</code>, cấu hình cố định, return nhiều giá trị từ hàm</td>
+              <td>Lọc danh sách email/ID trùng lặp, kiểm tra <code>if user_id in banned_set</code> siêu nhanh</td>
+              <td>Lưu object dạng JSON, bộ nhớ đệm (cache), đếm tần suất từ</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Câu 3 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 3: Khi nào nên dùng <code>tuple</code> thay vì <code>list</code>?</div>
+        <div class="a-box">
+          <strong>✅ 4 lý do chọn <code>tuple</code> thay vì <code>list</code>:</strong>
+          <ol>
+            <li><strong>Bảo vệ dữ liệu không bị sửa nhầm (Write-protection):</strong> Khi dữ liệu là hằng số hoặc bản ghi cố định (ví dụ tọa độ <code>(21.0285, 105.8542)</code>), dùng <code>tuple</code> đảm bảo không hàm nào vô tình <code>.append()</code> hay sửa mất dữ liệu.</li>
+            <li><strong>Làm Key cho <code>dict</code> hoặc phần tử của <code>set</code> (Hashable):</strong> <code>list</code> không thể làm key trong <code>dict</code> (sẽ báo lỗi <code>TypeError: unhashable type: 'list'</code>), còn <code>tuple</code> (nếu chứa các phần tử bất biến) thì làm key được: <code>cache[(user_id, page)] = data</code>.</li>
+            <li><strong>Tiết kiệm RAM và tạo nhanh hơn <code>list</code>:</strong> Vì kích thước cố định, Python cấp phát vừa khít bộ nhớ cho <code>tuple</code> (không cần over-allocation dự phòng như <code>list</code>).</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Câu 4 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 4: Sự khác nhau giữa <code>==</code> và <code>is</code> trong Python?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong><code>==</code> (Equality — So sánh GIÁ TRỊ):</strong> Kiểm tra xem 2 biến có <strong>giá trị bên trong bằng nhau</strong> hay không (gọi hàm <code>__eq__()</code>).</li>
+            <li><strong><code>is</code> (Identity — So sánh ĐỊA CHỈ Ô NHỚ):</strong> Kiểm tra xem 2 biến có <strong>trỏ tới cùng 1 object duy nhất trong RAM</strong> hay không (tương đương <code>id(a) == id(b)</code>).</li>
+          </ul>
+        </div>
+        <pre class="code">a = [1, 2, 3]
+b = [1, 2, 3]
+print(a == b)  # True  (Giá trị bên trong giống hệt nhau)
+print(a is b)  # False (Hai list nằm ở 2 ô nhớ khác nhau trong RAM!)
+
+# ⚠️ BẪY PHỎNG VẤN KINH ĐIỂN (Integer Caching / Interning):
+x = 256
+y = 256
+print(x is y)  # True! Vì Python tạo sẵn (cache) các số nguyên nhỏ từ -5 đến 256 trong RAM!
+
+m = 1000
+n = 1000
+print(m == n)  # True
+print(m is n)  # False! (Ngoài khoảng -5..256, tạo 2 object riêng biệt)</pre>
+      </div>
+
+      <!-- Câu 5 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 5: <code>None</code>, <code>False</code>, <code>0</code>, <code>""</code> (empty string) và <code>[]</code> (empty list) khác nhau như thế nào?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong>Điểm giống nhau:</strong> Cả 5 giá trị này đều là <strong>Falsy</strong> (khi đưa vào <code>bool(x)</code> hoặc <code>if x:</code> đều trả về <code>False</code>).</li>
+            <li><strong>Điểm khác nhau:</strong> Chúng có <strong>kiểu dữ liệu và ý nghĩa hoàn toàn khác nhau</strong>:
+              <ul>
+                <li><code>None</code> (kiểu <code>NoneType</code>): Biểu thị sự <strong>vắng mặt của dữ liệu / chưa có giá trị</strong> (giống <code>NULL</code> trong SQL).</li>
+                <li><code>False</code> (kiểu <code>bool</code>): Giá trị logic Sai.</li>
+                <li><code>0</code> (kiểu <code>int</code>): Con số không (ví dụ: <code>price = 0</code> cho đơn hàng miễn phí — đây là dữ liệu hợp lệ, KHÔNG phải là thiếu dữ liệu!).</li>
+                <li><code>""</code> (kiểu <code>str</code>): Chuỗi rỗng độ dài 0.</li>
+                <li><code>[]</code> (kiểu <code>list</code>): Danh sách rỗng chưa có phần tử.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="trap-box">
+          <strong>💥 Bẫy Thực Tế Khi Đi Làm:</strong>
+          Giả sử khách hàng nhập <code>discount = 0</code> (giảm giá 0 đồng).
+          <br/>• Nếu bạn viết <code>if not discount:</code> ➡️ Khi <code>discount = 0</code>, Python coi <code>0</code> là Falsy và báo lỗi <em>"Bạn chưa nhập discount!"</em> (SAI!).
+          <br/>• <strong>Cách viết đúng:</strong> Phải viết <code>if discount is None:</code> để chỉ bắt trường hợp chưa truyền dữ liệu!
+        </div>
+      </div>
+
+      <!-- ==========================================
+           1.2 FUNCTION, SCOPE & OOP (CÂU 6 - CÂU 11)
+           ========================================== -->
+      <h3 id="sec1-2">1.2 Function, Scope & OOP (Câu 6 – Câu 11)</h3>
+
+      <!-- Câu 6 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 6: <code>*args</code> và <code>**kwargs</code> dùng để làm gì? Thứ tự tham số chuẩn?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong><code>*args</code> (Non-keyword / Positional Arguments):</strong> Gom số lượng tùy ý các tham số truyền theo vị trí thành một <strong><code>tuple</code></strong>.</li>
+            <li><strong><code>**kwargs</code> (Keyword Arguments):</strong> Gom số lượng tùy ý các tham số truyền theo tên (<code>key=value</code>) thành một <strong><code>dict</code></strong>.</li>
+            <li><strong>Thứ tự bắt buộc trong khai báo hàm:</strong>
+              <code>def my_func(normal_arg, *args, default_arg=10, **kwargs):</code>
+            </li>
+          </ul>
+        </div>
+        <pre class="code">def log_order(order_id, *items, status="PENDING", **metadata):
+    print(order_id)  # 101
+    print(items)     # ('iPhone', 'AirPods') -> tuple
+    print(status)    # 'PAID'
+    print(metadata)  # {'coupon': 'SALE50', 'note': 'Giao nhanh'} -> dict
+
+log_order(101, "iPhone", "AirPods", status="PAID", coupon="SALE50", note="Giao nhanh")</pre>
+      </div>
+
+      <!-- Câu 7 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 7: Sự khác nhau giữa <code>local</code>, <code>global</code>, <code>nonlocal</code> scope? Quy tắc LEGB?</div>
+        <div class="a-box">
+          Khi bạn gọi một biến trong Python, nó tìm kiếm theo quy tắc <strong>LEGB</strong> từ trong ra ngoài:
+          <ol>
+            <li><strong>L — Local:</strong> Biến khai báo bên trong hàm hiện tại.</li>
+            <li><strong>E — Enclosing (Nonlocal):</strong> Biến nằm trong hàm cha bao ngoài (khi có hàm lồng trong hàm / Closure). Muốn sửa biến của hàm cha phải dùng từ khóa <code>nonlocal</code>.</li>
+            <li><strong>G — Global:</strong> Biến khai báo ở cấp độ ngoài cùng của file module. Muốn gán lại biến global từ trong hàm phải dùng từ khóa <code>global</code>.</li>
+            <li><strong>B — Built-in:</strong> Các hàm/từ khóa có sẵn của Python như <code>len</code>, <code>print</code>, <code>range</code>.</li>
+          </ol>
+        </div>
+        <pre class="code">x = "Global"
+
+def outer():
+    x = "Enclosing"
+    def inner():
+        nonlocal x  # Sửa biến x của hàm outer()! (Nếu dùng 'global x' sẽ sửa x ở ngoài cùng)
+        x = "Modified Enclosing"
+    inner()
+    print(x)  # In ra: "Modified Enclosing"</pre>
+      </div>
+
+      <!-- Câu 8 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 8: Decorator trong Python là gì? Hãy nêu một ví dụ ứng dụng.</div>
+        <div class="a-box">
+          <strong>✅ Trả lời:</strong> Vì trong Python hàm là <em>First-Class Object</em> (có thể truyền hàm làm tham số cho hàm khác và trả về hàm), <strong>Decorator</strong> là một hàm nhận vào một hàm gốc, bọc thêm logic chạy <strong>trước hoặc sau</strong> hàm gốc đó mà <strong>không cần sửa code bên trong hàm gốc</strong>.
+          <br/><strong>Ứng dụng thực tế:</strong> Kiểm tra đăng nhập (<code>@login_required</code> trong Django), đo thời gian chạy API (<code>@timer</code>), lưu cache (<code>@lru_cache</code>), tự động thử lại khi lỗi mạng (<code>@retry</code>).
+        </div>
+        <pre class="code">from functools import wraps
+
+def require_admin(func):
+    @wraps(func)  # Giữ nguyên __name__ và docstring của hàm gốc
+    def wrapper(user, *args, **kwargs):
+        if getattr(user, "role", None) != "ADMIN":
+            raise PermissionError("Chỉ Admin mới được thực hiện!")
+        return func(user, *args, **kwargs)
+    return wrapper
+
+@require_admin
+def delete_database(user):
+    return "Đã xóa DB!"</pre>
+      </div>
+
+      <!-- Câu 9 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 9: <code>lambda</code> function là gì? Khi nào không nên dùng <code>lambda</code>?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong><code>lambda</code>:</strong> Là hàm ẩn danh (anonymous function) viết gọn trên <strong>1 dòng duy nhất</strong> với cú pháp <code>lambda tham_số: biểu_thức_trả_về</code>. Rất tiện khi truyền làm hàm callback ngắn cho <code>sorted()</code>, <code>map()</code>, <code>filter()</code>:
+              <br/><code>users.sort(key=lambda u: u["age"])</code>
+            </li>
+            <li><strong>Khi nào KHÔNG nên dùng:</strong>
+              <ol>
+                <li>Khi logic dài, có nhiều nhánh <code>if/else</code> phức tạp làm giảm khả năng đọc (Readability).</li>
+                <li>Khi cần tái sử dụng nhiều nơi, cần viết <code>docstring</code>, type hints hoặc cần tên hàm rõ ràng trên Stack Trace khi debug lỗi (vì <code>lambda</code> chỉ hiện tên là <code>&lt;lambda&gt;</code> khi văng lỗi!).</li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Câu 10 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 10: <code>instance method</code>, <code>@classmethod</code> và <code>@staticmethod</code> khác nhau như thế nào?</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Loại Method</th>
+              <th>Tham số đầu tiên</th>
+              <th>Quyền truy cập</th>
+              <th>Khi nào sử dụng thực tế?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Instance Method</strong> (Mặc định)</td>
+              <td><code>self</code> (chính object hiện tại)</td>
+              <td>Truy cập & sửa được cả thuộc tính của <code>self</code> lẫn của Class</td>
+              <td>Hành vi phụ thuộc vào dữ liệu của từng object cụ thể (vd: <code>order.calculate_total()</code>).</td>
+            </tr>
+            <tr>
+              <td><strong><code>@classmethod</code></strong></td>
+              <td><code>cls</code> (chính Class đó)</td>
+              <td>Truy cập được thuộc tính của Class, <strong>không</strong> truy cập được <code>self</code></td>
+              <td>Dùng làm <strong>Factory Method</strong> tạo object theo nhiều cách khác nhau (vd: <code>User.from_json(data)</code>, <code>Date.from_string("2026-10-21")</code>).</td>
+            </tr>
+            <tr>
+              <td><strong><code>@staticmethod</code></strong></td>
+              <td>Không có <code>self</code> hay <code>cls</code></td>
+              <td>Không phụ thuộc vào trạng thái của Object hay Class</td>
+              <td>Hàm tiện ích (Utility/Helper) có liên quan về mặt ý nghĩa với Class (vd: <code>Order.is_valid_coupon_format(code)</code>).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Câu 11 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 11: Kế thừa, Đa hình và Đóng gói trong Python được thể hiện như thế nào?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong>1. Kế thừa (Inheritance):</strong> Lớp con kế thừa thuộc tính/phương thức từ lớp cha qua <code>class Child(Parent):</code> và gọi lớp cha bằng <code>super().__init__()</code>. Python hỗ trợ đa kế thừa (giải quyết thứ tự gọi hàm qua thuật toán <strong>MRO - Method Resolution Order</strong>: <code>Child.mro()</code>).</li>
+            <li><strong>2. Đa hình (Polymorphism):</strong> Thể hiện qua <strong>Method Overriding</strong> (lớp con định nghĩa lại hàm cùng tên của lớp cha) và <strong>Duck Typing</strong> (không cần cùng lớp cha, miễn có cùng hàm <code>.pay()</code> như <code>MomoPayment.pay()</code> và <code>StripePayment.pay()</code> là gọi chung được).</li>
+            <li><strong>3. Đóng gói (Encapsulation):</strong> Python dùng quy ước đặt tên kết hợp <code>@property</code>:
+              <ul>
+                <li><code>name</code> (Public): Truy cập tự do.</li>
+                <li><code>_balance</code> (Protected — 1 gạch dưới): Quy ước ngầm بين các dev <em>"Chỉ dùng nội bộ trong class và class con, đừng gọi từ bên ngoài"</em>.</li>
+                <li><code>__pin</code> (Private — 2 gạch dưới): Python thực hiện <strong>Name Mangling</strong> (đổi tên ngầm thành <code>_BankAccount__pin</code>) để tránh bị truy cập trực tiếp hoặc bị class con ghi đè nhầm.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           1.3 MEMORY, ITERATOR, GENERATOR (CÂU 12 - CÂU 16)
+           ========================================== -->
+      <h3 id="sec1-3">1.3 Memory, Iterator & Generator (Câu 12 – Câu 16)</h3>
+
+      <!-- Câu 12 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 12: Mutable và Immutable trong Python là gì? Vì sao cần quan tâm?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong>Immutable (Bất biến):</strong> <code>int</code>, <code>float</code>, <code>bool</code>, <code>str</code>, <code>tuple</code>, <code>frozenset</code>. Khi bạn "sửa" một biến <code>str</code> hay <code>int</code>, thực chất Python <strong>tạo ra một object mới tinh ở ô nhớ khác</strong>.</li>
+            <li><strong>Mutable (Khả biến):</strong> <code>list</code>, <code>dict</code>, <code>set</code>. Sửa trực tiếp trên cùng ô nhớ gốc!</li>
+          </ul>
+        </div>
+        <div class="trap-box">
+          <strong>🔥 BẪY PHỎNG VẤN SỐ 1 PYTHON (Mutable Default Argument):</strong>
+          <br/>Tại sao tuyệt đối KHÔNG ĐƯỢC viết <code>def add_item(item, cart=[]):</code>?
+          <br/>Vì giá trị mặc định <code>cart=[]</code> chỉ được khởi tạo <strong>ĐÚNG 1 LẦN khi định nghĩa hàm</strong>! Mọi lần gọi hàm sau đều dùng chung chính cái list đó!
+        </div>
+        <pre class="code"># ❌ CODE LỖI KINH ĐIỂN:
+def add_item_bad(item, cart=[]):
+    cart.append(item)
+    return cart
+
+print(add_item_bad("Táo"))   # ['Táo']
+print(add_item_bad("Cam"))   # ['Táo', 'Cam'] <-- Bị dính dữ liệu của lần gọi trước!
+
+# ✅ CÁCH VIẾT CHUẨN:
+def add_item_good(item, cart=None):
+    if cart is None:
+        cart = []
+    cart.append(item)
+    return cart</pre>
+      </div>
+
+      <!-- Câu 13 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 13: Shallow Copy và Deep Copy khác nhau như thế nào?</div>
+        <div class="a-box">
+          Sự khác biệt chỉ xuất hiện khi bạn copy một <strong>Nested Object (Object lồng nhau, ví dụ list chứa list con <code>[[1, 2], [3, 4]]</code>)</strong>:
+          <ul>
+            <li><strong>Shallow Copy (<code>copy.copy(a)</code> hoặc <code>a[:]</code>):</strong> Chỉ tạo mới cái vỏ list bên ngoài, nhưng các <strong>list con bên trong vẫn trỏ chung địa chỉ ô nhớ với bản gốc</strong>! Sửa phần tử trong list con sẽ làm bản gốc bị thay đổi theo!</li>
+            <li><strong>Deep Copy (<code>copy.deepcopy(a)</code>):</strong> Đệ quy nhân bản mới toàn bộ từ vỏ ngoài lẫn mọi object con bên trong — độc lập 100% với bản gốc!</li>
+          </ul>
+        </div>
+        <div class="diagram-box">
+          <pre class="mermaid">
+flowchart LR
+    subgraph Shallow ["⚠️ Shallow Copy: copy.copy(a)"]
+        direction TB
+        S1["List gốc a"] --> Sub["Chung List con [1, 2] trong RAM!<br/>(Sửa ở b làm a đổi theo!)"]
+        S2["List copy b"] --> Sub
+    end
+
+    subgraph Deep ["✅ Deep Copy: copy.deepcopy(a)"]
+        direction TB
+        D1["List gốc a"] --> DSub1["List con [1, 2] (Ô nhớ #1)"]
+        D2["List copy b"] --> DSub2["List con [1, 2] (Ô nhớ #2 — Độc lập 100%!)"]
+    end
+
+    style Sub fill:#7f1d1d,stroke:#f87171,color:#fff
+    style DSub1 fill:#166534,stroke:#4ade80,color:#fff
+    style DSub2 fill:#166534,stroke:#4ade80,color:#fff
+          </pre>
+        </div>
+      </div>
+
+      <!-- Câu 14 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 14: <code>Iterator</code> và <code>Iterable</code> khác nhau như thế nào? Vòng <code>for</code> hoạt động ra sao?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong><code>Iterable</code> (Khả duyệt):</strong> Bất kỳ object nào có thể lặp qua bằng vòng <code>for</code> (như <code>list</code>, <code>tuple</code>, <code>str</code>, <code>dict</code>). Nó cài đặt hàm <code>__iter__()</code> trả về một Iterator, nhưng bản thân nó <strong>không lưu vị trí đang duyệt tới đâu</strong> (có thể duyệt đi duyệt lại nhiều lần).</li>
+            <li><strong><code>Iterator</code> (Bộ lặp):</strong> Là object giữ trạng thái vị trí hiện tại, cài đặt cả <code>__iter__()</code> lẫn <code>__next__()</code>. Mỗi lần gọi <code>next(it)</code> nó trả về phần tử tiếp theo; khi hết phần tử nó ném ra ngoại lệ <code>StopIteration</code> (chỉ duyệt được 1 lần là cạn!).</li>
+            <li><strong>Cách vòng lặp <code>for x in my_list:</code> hoạt động ngầm:</strong>
+              Python gọi <code>it = iter(my_list)</code>, sau đó lặp vô tận gọi <code>x = next(it)</code> cho đến khi bắt được <code>StopIteration</code> thì dừng vòng lặp!</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Câu 15 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 15: <code>Generator</code> là gì? Ưu điểm của <code>yield</code> so với <code>return</code>?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong><code>Generator</code>:</strong> Là cách đơn giản nhất để tạo một <code>Iterator</code> bằng cách viết một hàm có từ khóa <strong><code>yield</code></strong> (hoặc dùng biểu thức <code>(x*2 for x in range(1000000))</code>).</li>
+            <li><strong><code>return</code> vs <code>yield</code>:</strong>
+              <ul>
+                <li><code>return</code>: Tính toán xong <strong>toàn bộ kết quả</strong>, trả về 1 lần và <strong>xóa sổ hàm khỏi bộ nhớ</strong>.</li>
+                <li><code>yield</code> (Lazy Evaluation): Trả về <strong>từng giá trị một khi được yêu cầu</strong>, <strong>tạm dừng (pause)</strong> hàm và giữ nguyên toàn bộ biến local tại dòng đó. Lần gọi <code>next()</code> tiếp theo, hàm chạy tiếp ngay từ dòng sau <code>yield</code>!</li>
+              </ul>
+            </li>
+            <li><strong>Ưu điểm lớn nhất:</strong> <strong>Tiết kiệm bộ nhớ RAM cực khủng ($O(1)$ RAM)</strong> — xử lý 10 triệu bản ghi hoặc đọc file log 20 GB mà chỉ tốn vài KB RAM!</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Câu 16 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 16: List Comprehension có ưu/nhược điểm gì?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong>Ưu điểm:</strong>
+              <ol>
+                <li>Ngắn gọn, dễ đọc với các phép biến đổi/lọc đơn giản: <code>evens = [x for x in nums if x % 2 == 0]</code>.</li>
+                <li><strong>Nhanh hơn vòng <code>for</code> thường + <code>.append()</code> khoảng 15–30%</strong> vì được tối ưu ở mức C-bytecode (<code>LIST_APPEND</code>) thay vì phải tra cứu method <code>.append</code> ở mỗi vòng lặp.</li>
+              </ol>
+            </li>
+            <li><strong>Nhược điểm:</strong>
+              <ol>
+                <li>Khởi tạo toàn bộ danh sách trong RAM cùng lúc ➡️ Nếu dữ liệu hàng triệu phần tử sẽ gây tràn RAM (khi đó nên đổi ngoặc vuông <code>[...]</code> thành ngoặc tròn <code>(...)</code> Generator Expression!).</li>
+                <li>Nếu lồng 2–3 vòng <code>for</code> hoặc <code>if/else</code> phức tạp sẽ cực kỳ rối mắt, khó đặt breakpoint debug.</li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           1.4 EXCEPTION, FILE, PACKAGE (CÂU 17 - CÂU 21)
+           ========================================== -->
+      <h3 id="sec1-4">1.4 Exception, File & Package (Câu 17 – Câu 21)</h3>
+
+      <!-- Câu 17 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 17: <code>try / except / else / finally</code> hoạt động như thế nào?</div>
+        <div class="diagram-box">
+          <pre class="mermaid">
+flowchart LR
+    Try["1. Khối <b>try</b><br/>Chạy code có nguy cơ lỗi"]
+    Try -->|"❌ Có lỗi (Exception)"| Exc["2A. Khối <b>except</b><br/>Bắt và xử lý lỗi"]
+    Try -->|"✅ KHÔNG có lỗi"| Else["2B. Khối <b>else</b><br/>Chỉ chạy khi try thành công!"]
+    Exc --> Fin["3. Khối <b>finally</b><br/>LUÔN LUÔN CHẠY (Đóng file/DB)"]
+    Else --> Fin
+
+    style Exc fill:#7f1d1d,stroke:#f87171,color:#fff
+    style Else fill:#166534,stroke:#4ade80,color:#fff
+    style Fin fill:#1e3a8a,stroke:#60a5fa,color:#fff
+          </pre>
+        </div>
+        <div class="a-box">
+          <strong>💡 Tại sao nên dùng khối <code>else</code> thay vì nhét hết code vào cuối khối <code>try</code>?</strong>
+          <br/>Vì trong khối <code>try</code> bạn chỉ nên để <strong>đúng dòng lệnh bạn muốn bắt lỗi</strong>. Nếu nhét thêm các dòng code khác vào <code>try</code>, lỡ các dòng đó cũng ném ra lỗi cùng loại thì khối <code>except</code> sẽ bắt nhầm!
+        </div>
+      </div>
+
+      <!-- Câu 18 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 18: Vì sao không nên dùng <code>except Exception:</code> hoặc <code>except:</code> trống quá rộng?</div>
+        <div class="trap-box">
+          <ul>
+            <li><strong>1. Che giấu bug ngầm (Silent Failures):</strong> Nếu bạn gõ sai tên biến (<code>NameError</code>) hoặc sai kiểu dữ liệu (<code>TypeError</code>) bên trong <code>try</code>, một cái <code>except: pass</code> sẽ nuốt chửng lỗi đó khiến chương trình chạy sai kết quả mà không báo dòng nào bị lỗi!</li>
+            <li><strong>2. Bare <code>except:</code> bắt luôn cả lệnh tắt chương trình!</strong> Khi bạn bấm <code>Ctrl+C</code> (<code>KeyboardInterrupt</code>) hoặc gọi <code>sys.exit()</code> (<code>SystemExit</code>), bare <code>except:</code> sẽ chặn không cho chương trình dừng lại!</li>
+            <li><strong>✅ Nguyên tắc vàng:</strong> Luôn bắt đúng Exception cụ thể (ví dụ <code>except (ValueError, KeyError) as e:</code>) và ghi log đầy đủ (<code>logger.exception(e)</code>).</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Câu 19 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 19: Context Manager là gì? Tại sao nên dùng <code>with</code> khi làm việc với file?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong>Context Manager:</strong> Là một object quản lý vòng đời tài nguyên (File, Database Connection, Socket, Thread Lock) thông qua 2 hàm magic: <strong><code>__enter__(self)</code></strong> (cấp phát tài nguyên khi vào khối <code>with</code>) và <strong><code>__exit__(self, exc_type, exc_val, exc_tb)</code></strong> (tự động dọn dẹp/đóng tài nguyên khi thoát khỏi khối <code>with</code>).</li>
+            <li><strong>Tại sao phải dùng <code>with open("data.txt") as f:</code>?</strong>
+              Vì dù code bên trong khối <code>with</code> chạy thành công, có lệnh <code>return</code> sớm, hay <strong>bị văng Exception giữa chừng</strong>, Python vẫn đảm bảo 100% gọi <code>__exit__()</code> để <strong>đóng file (<code>f.close()</code>) ngay lập tức</strong>, tránh lỗi rò rỉ tài nguyên hệ điều hành (<code>Too many open files</code>)!</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Câu 20 & 21 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 20 & 21: Module vs Package khác nhau thế nào? <code>virtualenv / venv</code> dùng để làm gì?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong>Câu 20 (Module vs Package):</strong>
+              <ul>
+                <li><strong>Module:</strong> Là một file <code>.py</code> đơn lẻ (ví dụ: <code>utils.py</code>) chứa hàm, class, biến.</li>
+                <li><strong>Package:</strong> Là một <strong>thư mục (directory)</strong> gom nhiều module lại với nhau và có chứa file <code>__init__.py</code> (ví dụ: <code>orders/__init__.py</code>, <code>orders/models.py</code>, <code>orders/views.py</code>).</li>
+              </ul>
+            </li>
+            <li><strong>Câu 21 (<code>venv / virtualenv</code>):</strong>
+              Tạo một môi trường Python cô lập riêng cho từng project. Nhờ đó, <em>Dự án A</em> có thể chạy <code>Django 3.2</code> còn <em>Dự án B</em> chạy <code>Django 5.0</code> trên cùng một máy tính mà không bị đè thư viện lên nhau. Xuất danh sách thư viện bằng <code>pip freeze &gt; requirements.txt</code> và cài lại bằng <code>pip install -r requirements.txt</code>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           1.5 CONCURRENCY & PERFORMANCE (CÂU 22 - CÂU 25)
+           ========================================== -->
+      <h3 id="sec1-5">1.5 Concurrency & Performance (Câu 22 – Câu 25)</h3>
+
+      <!-- Câu 22 & 23 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 22 & 23: GIL là gì? Phân biệt <code>threading</code>, <code>multiprocessing</code> và <code>asyncio</code>?</div>
+        <div class="a-box">
+          <strong>1. GIL (Global Interpreter Lock):</strong> Là một khóa (mutex) bên trong CPython chỉ cho phép <strong>tối đa 1 luồng (thread) thực thi Python bytecode tại một thời điểm</strong> trong cùng 1 process (để bảo vệ bộ đếm tham chiếu bộ nhớ Reference Counting không bị Race Condition).
+          <br/><strong>2. Hệ quả thực tế:</strong>
+          <ul>
+            <li>Với tác vụ <strong>CPU-Bound</strong> (tính toán nặng, xử lý ảnh, vòng lặp lớn): Dùng nhiều <code>threading</code> <strong>KHÔNG làm chạy nhanh hơn</strong> vì các thread phải xếp hàng tranh nhau 1 cái GIL!</li>
+            <li>Với tác vụ <strong>I/O-Bound</strong> (gọi DB, gọi API, đọc file): Khi thread đang ngồi chờ mạng/DB phản hồi, Python <strong>tự động nhả GIL ra</strong> cho thread khác chạy!</li>
+          </ul>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Mô hình</th>
+              <th>Cơ chế hoạt động</th>
+              <th>Bài toán phù hợp nhất</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong><code>threading</code></strong></td>
+              <td>Nhiều OS threads chạy trong 1 process, chia sẻ RAM, bị giới hạn bởi GIL khi chạy CPU.</td>
+              <td><strong>I/O-Bound đồng bộ (Sync I/O):</strong> Gọi 20 API bằng thư viện <code>requests</code> cũ hoặc đọc/ghi file đồng thời.</td>
+            </tr>
+            <tr>
+              <td><strong><code>asyncio</code></strong></td>
+              <td><strong>1 Thread duy nhất</strong> dùng Event Loop + <code>async/await</code> (Cooperative multitasking). Siêu nhẹ RAM!</td>
+              <td><strong>I/O-Bound tải cực cao (High Concurrency):</strong> Web server FastAPI/ASGI xử lý 5,000 kết nối mạng/DB cùng lúc.</td>
+            </tr>
+            <tr>
+              <td><strong><code>multiprocessing</code></strong></td>
+              <td>Tạo ra nhiều <strong>OS Process riêng biệt</strong>, mỗi process có một Python Interpreter và <strong>một GIL riêng</strong> (chạy tận dụng hết 100% đa nhân CPU).</td>
+              <td><strong>CPU-Bound:</strong> Xử lý ảnh/video, tính toán ma trận, nén file, Machine Learning.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Câu 24 & 25 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 24 & 25: Làm sao tối ưu hiệu năng Python? Big-O notation trong <code>list</code> vs <code>dict/set</code> lookup?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong>Câu 25 (Big-O Notation):</strong> Đo lường tốc độ tăng thời gian chạy (Time Complexity) hoặc bộ nhớ (Space Complexity) khi kích thước dữ liệu $N$ tăng lên:
+              <ul>
+                <li><code>x in my_list</code> ➡️ <strong>$O(N)$ (Tuyến tính):</strong> Nếu list có 1,000,000 phần tử, Python phải duyệt qua từng phần tử từ đầu đến cuối (tối đa 1,000,000 phép so sánh!).</li>
+                <li><code>x in my_set</code> hoặc <code>x in my_dict</code> ➡️ <strong>$O(1)$ (Hằng số):</strong> Python băm <code>hash(x)</code> để nhảy thẳng tới ô nhớ trong <strong> chỉ 1 bước duy nhất</strong> dù có 10 triệu phần tử!</li>
+                <li>Binary Search trên danh sách đã sắp xếp (`bisect`) ➡️ <strong>$O(\log N)$</strong>.</li>
+              </ul>
+            </li>
+            <li><strong>Câu 24 (Các bước tối ưu code Python thực tế):</strong>
+              <ol>
+                <li><strong>Đo đạc trước (Don't guess, Profile!):</strong> Dùng <code>cProfile</code>, <code>time.perf_counter()</code> hoặc APM để tìm đúng hàm gây nghẽn (tránh <em>Premature Optimization</em>).</li>
+                <li><strong>Chọn đúng Data Structure & Thuật toán:</strong> Đổi <code>list</code> lookup $O(N)$ sang <code>set</code>/<code>dict</code> $O(1)$; dùng <code>collections.deque</code> cho hàng đợi FIFO ($O(1)$ <code>popleft()</code> thay vì <code>list.pop(0)</code> tốn $O(N)$).</li>
+                <li><strong>Tối ưu Database & I/O:</strong> Khử N+1 query (<code>select_related</code> / <code>prefetch_related</code>), dùng Bulk Insert/Update (<code>bulk_create</code>), đánh Index DB.</li>
+                <li><strong>Tiết kiệm RAM & Caching:</strong> Dùng Generator (<code>yield</code>) cho dữ liệu lớn, dùng <code>@functools.lru_cache</code> hoặc Redis cho kết quả tính toán lặp lại.</li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         PHẦN 2: DJANGO FRAMEWORK (CÂU 26 - CÂU 52)
+         ========================================== -->
+    <div class="card" id="sec2-1">
+      <h2>2. Django Framework <span class="tag">Câu 26 – Câu 52</span></h2>
+
+      <h3>2.1 Tổng quan & Kiến trúc (Câu 26 – Câu 30)</h3>
+
+      <!-- Câu 26, 27, 28 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 26, 27, 28: Django là gì? Mô hình MTV khác MVC thế nào? Project vs App?</div>
+        <div class="diagram-box">
+          <pre class="mermaid">
+flowchart LR
+    Req["🧑‍💻 HTTP Request"] ==> URL["🔀 <b>URL Dispatcher (urls.py)</b><br/>(Đóng vai trò <i>Controller</i> điều hướng)"]
+    URL ==> View["🧠 <b>View (views.py)</b><br/>Chứa Business Logic<br/>(Tương ứng <i>Controller</i> trong MVC)"]
+    View <==>|"Đọc / Ghi"| Model["🗄️ <b>Model (models.py)</b><br/>ORM ánh xạ bảng Database"]
+    View ==>|"Render HTML / JSON"| Tpl["🎨 <b>Template (.html) / Serializer</b><br/>Giao diện hiển thị (<i>View</i> trong MVC)"]
+
+    style URL fill:#1e3a8a,stroke:#60a5fa,color:#fff
+    style View fill:#166534,stroke:#4ade80,color:#fff
+    style Model fill:#4c1d95,stroke:#c084fc,color:#fff
+    style Tpl fill:#854d0e,stroke:#facc15,color:#fff
+          </pre>
+        </div>
+        <div class="a-box">
+          <ul>
+            <li><strong>Câu 26 (Khi nào chọn Django):</strong> Django là Web Framework theo triết lý <strong>"Batteries-Included" (Có sẵn mọi thứ)</strong>: tích hợp sẵn ORM, Migration, Admin Panel cực mạnh, Authentication, Form/CSRF/XSS Security. Rất hợp cho hệ thống E-Commerce, ERP, CMS, Fintech, SaaS cần phát triển nhanh, cấu trúc chuẩn mực và bảo mật cao.</li>
+            <li><strong>Câu 27 (MTV vs MVC):</strong> Bản chất giống hệt nhau, chỉ khác cách gọi tên:
+              <ul>
+                <li><strong>M (Model)</strong> = <strong>Model</strong> trong MVC (Quản lý dữ liệu & Database).</li>
+                <li><strong>T (Template)</strong> = <strong>View</strong> trong MVC (HTML hiển thị cho người dùng).</li>
+                <li><strong>V (View) + URL Dispatcher</strong> = <strong>Controller</strong> trong MVC (Nhận request, gọi Model xử lý logic và trả về Template/JSON).</li>
+              </ul>
+            </li>
+            <li><strong>Câu 28 (Project vs App):</strong>
+              <ul>
+                <li><strong>Project:</strong> Là toàn bộ website và cấu hình tổng thể (chứa <code>settings.py</code>, root <code>urls.py</code>, <code>wsgi.py/asgi.py</code>).</li>
+                <li><strong>App:</strong> Là một module chức năng độc lập bên trong Project (ví dụ: app <code>users</code>, app <code>orders</code>, app <code>payments</code>). Một Project gồm nhiều App, và một App có thể tái sử dụng sang Project khác.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Câu 29 & 30 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 29 & 30: Các cấu hình quan trọng trong <code>settings.py</code> và cơ chế URL Routing?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong>Câu 29 (<code>settings.py</code>):</strong>
+              <ul>
+                <li><code>SECRET_KEY</code>: Khóa bí mật dùng để ký Session, CSRF token, Password reset token (tuyệt đối lấy từ biến môi trường <code>os.environ</code>!).</li>
+                <li><code>DEBUG</code>: Bật <code>True</code> ở local để xem trang báo lỗi chi tiết; bắt buộc <code>False</code> trên Production.</li>
+                <li><code>ALLOWED_HOSTS</code>: Danh sách tên miền được phép truy cập (chống HTTP Host Header Attack).</li>
+                <li><code>INSTALLED_APPS</code>: Khai báo các app và thư viện (như <code>rest_framework</code>) đang dùng.</li>
+                <li><code>MIDDLEWARE</code>: Danh sách các lớp trung gian chạy theo thứ tự từ trên xuống dưới.</li>
+                <li><code>DATABASES</code>, <code>TEMPLATES</code>, <code>STATIC_URL / STATIC_ROOT</code>, <code>MEDIA_URL / MEDIA_ROOT</code>.</li>
+              </ul>
+            </li>
+            <li><strong>Câu 30 (URL Routing):</strong> Khi có request, Django đọc từ file <code>ROOT_URLCONF</code> (<code>urls.py</code> gốc), duyệt tuần tự danh sách <code>urlpatterns</code> từ trên xuống dưới bằng <code>path()</code> hoặc <code>re_path()</code>. Dùng <code>include('blog.urls', namespace='blog')</code> để tách URL về từng app, và dùng <code>reverse('blog:post-detail', args=[post.id])</code> (hoặc <code>{% url 'blog:post-detail' post.id %}</code> trong template) để không phải hardcode đường dẫn URL!</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           2.2 MODEL, ORM & DATABASE (CÂU 31 - CÂU 37)
+           ========================================== -->
+      <h3 id="sec2-2">2.2 Model, ORM & Database (Câu 31 – Câu 37)</h3>
+
+      <!-- Câu 31 & 32 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 31 & 32: Các loại Relationship trong Django Model và cơ chế Migration?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong>Câu 31 (3 loại quan hệ bảng trong Django ORM):</strong>
+              <ol>
+                <li><strong>Many-to-One (1-N):</strong> Dùng <code>ForeignKey(Author, on_delete=models.CASCADE, related_name='posts')</code> (Ví dụ: 1 tác giả có nhiều bài viết).</li>
+                <li><strong>One-to-One (1-1):</strong> Dùng <code>OneToOneField(User, on_delete=models.CASCADE)</code> (Bản chất là <code>ForeignKey</code> có <code>unique=True</code>, ví dụ: <code>User</code> ↔ <code>UserProfile</code>).</li>
+                <li><strong>Many-to-Many (N-N):</strong> Dùng <code>ManyToManyField(Tag)</code> (Django tự động sinh bảng trung gian thứ 3, hoặc tự định nghĩa bảng trung gian qua tham số <code>through='Enrollment'</code>).</li>
+              </ol>
+            </li>
+            <li><strong>Câu 32 (Migrations — Quản lý phiên bản cấu trúc Database):</strong>
+              <ul>
+                <li><code>python manage.py makemigrations</code>: So sánh code <code>models.py</code> với lịch sử migration để sinh ra file kịch bản Python (vd: <code>0002_add_slug.py</code>) — <em>chưa chạm vào DB!</em></li>
+                <li><code>python manage.py migrate</code>: Thực thi các file migration chưa chạy thành câu lệnh SQL (<code>CREATE TABLE</code>, <code>ALTER TABLE</code>) xuống DB và ghi nhận vào bảng <code>django_migrations</code>.</li>
+                <li><strong>Rollback về bản trước:</strong> <code>python manage.py migrate blog 0001</code>.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Câu 33 & 34 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 33 & 34 (Cực kỳ quan trọng): QuerySet Lazy Evaluation là gì? Phân biệt <code>select_related</code> và <code>prefetch_related</code>?</div>
+        <div class="a-box">
+          <strong>1. Câu 33 — QuerySet Lazy Evaluation:</strong>
+          <br/>Khi bạn viết <code>qs = Post.objects.filter(status='PUBLISHED').order_by('-created_at')</code>, Django <strong>CHƯA HỀ gọi xuống Database một lần nào cả!</strong> Nó chỉ xây dựng câu query trong bộ nhớ. Câu SQL chỉ thực sự chạy xuống DB khi bạn <em>tiêu thụ (evaluate)</em> dữ liệu: lặp <code>for post in qs:</code>, ép kiểu <code>list(qs)</code>, cắt <code>qs[:10]</code>, hoặc kiểm tra <code>bool(qs)</code>.
+        </div>
+        <div class="diagram-box">
+          <pre class="mermaid">
+flowchart TD
+    subgraph SR ["1️⃣ select_related('author') — Dùng cho ForeignKey & OneToOne (1-1, N-1)"]
+        S1["Gộp thành <b>1 câu SQL duy nhất có INNER/LEFT JOIN</b>:<br/>SELECT post.*, user.* FROM post JOIN user ON post.author_id = user.id"]
+    end
+
+    subgraph PR ["2️⃣ prefetch_related('comments', 'tags') — Dùng cho ManyToMany & Reverse FK (1-N, N-N)"]
+        P1["Chạy <b>2 câu SQL riêng biệt</b> rồi nối bằng Python trong RAM:<br/>SQL 1: SELECT * FROM post LIMIT 20;<br/>SQL 2: SELECT * FROM comment WHERE post_id IN (1, 2, ..., 20);"]
+    end
+
+    style S1 fill:#166534,stroke:#4ade80,color:#fff
+    style P1 fill:#1e3a8a,stroke:#60a5fa,color:#fff
+          </pre>
+        </div>
+        <div class="a-box">
+          <strong>💡 Tại sao <code>ManyToMany</code> / <code>1-N</code> không dùng <code>JOIN</code> (<code>select_related</code>) được?</strong>
+          Vì nếu 1 bài viết có 50 bình luận và 10 tags, dùng SQL <code>JOIN</code> sẽ tạo ra $50 \times 10 = 500$ dòng bị lặp lại nội dung bài viết (Cartesian product explosion), làm tốn băng thông mạng giữa DB và App! Do đó <code>prefetch_related</code> tách thành 2 câu query rời rồi ghép bằng Python là tối ưu nhất.
+        </div>
+      </div>
+
+      <!-- Câu 35, 36, 37 -->
+      <div class="qa-block">
+        <div class="q-title">Câu 35, 36, 37: Phân biệt <code>get()</code>, <code>filter()</code>, <code>first()</code>? Validate ở Model? Khi nào dùng <code>transaction.atomic()</code>?</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Hàm</th>
+              <th>Giá trị trả về</th>
+              <th>Nếu không tìm thấy (0 bản ghi)</th>
+              <th>Nếu có &gt; 1 bản ghi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong><code>.get(id=1)</code></strong></td>
+              <td>1 Object <code>Model</code> (Thực thi SQL ngay!)</td>
+              <td>💥 Văng lỗi <code>Model.DoesNotExist</code></td>
+              <td>💥 Văng lỗi <code>Model.MultipleObjectsReturned</code></td>
+            </tr>
+            <tr>
+              <td><strong><code>.filter(status='OK')</code></strong></td>
+              <td>1 <code>QuerySet</code> (Lazy — chưa chạy SQL)</td>
+              <td>Trả về <code>QuerySet</code> rỗng <code>&lt;QuerySet []&gt;</code> (Không lỗi)</td>
+              <td>Trả về <code>QuerySet</code> chứa tất cả bản ghi khớp</td>
+            </tr>
+            <tr>
+              <td><strong><code>.filter(...).first()</code></strong></td>
+              <td>1 Object <code>Model</code> hoặc <code>None</code></td>
+              <td>Trả về <code>None</code> (An toàn, không văng lỗi!)</td>
+              <td>Trả về bản ghi đầu tiên (<code>LIMIT 1</code>)</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="a-box">
+          <ul>
+            <li><strong>Câu 36 (Validate ở Model):</strong> Định nghĩa hàm <code>clean(self)</code> trong Model để kiểm tra logic chéo giữa nhiều trường (vd: <code>end_date &gt; start_date</code>) và dùng <code>Meta.constraints = [models.UniqueConstraint(...), models.CheckConstraint(...)]</code> ở tầng DB. <em>Lưu ý bẫy phỏng vấn:</em> Hàm <code>model.save()</code> mặc định <strong>KHÔNG tự gọi <code>full_clean()</code></strong> (chỉ có <code>ModelForm</code> mới tự gọi <code>full_clean()</code>), nên nếu gọi <code>.save()</code> trong API/service cần chủ động gọi <code>obj.full_clean()</code> hoặc validate ở DRF Serializer!</li>
+            <li><strong>Câu 37 (<code>with transaction.atomic():</code>):</strong> Dùng khi một nghiệp vụ cập nhật <strong>nhiều bảng cùng lúc</strong> (vd: Tạo đơn hàng + Trừ tồn kho + Trừ số dư ví). Nếu bất kỳ bước nào bên trong khối <code>with transaction.atomic():</code> văng Exception, Django tự động <strong>ROLLBACK toàn bộ</strong> về trạng thái ban đầu để tránh lệch dữ liệu. Kết hợp với <code>select_for_update()</code> để khóa dòng chống Race Condition!</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           2.3 VIEW, TEMPLATE, FORM (CÂU 38 - CÂU 42)
+           ========================================== -->
+      <h3 id="sec2-3">2.3 View, Template, Form & CSRF (Câu 38 – Câu 42)</h3>
+
+      <div class="qa-block">
+        <div class="q-title">Câu 38 – 42: FBV vs CBV? <code>request/response</code>? Template Inheritance? <code>Form</code> vs <code>ModelForm</code>? Cơ chế CSRF?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong>Câu 38 (FBV vs CBV):</strong>
+              <ul>
+                <li><strong>Function-Based View (FBV):</strong> Viết bằng hàm <code>def my_view(request):</code>, phân nhánh bằng <code>if request.method == 'POST':</code>. Ưu điểm: Tường minh, dễ đọc luồng xử lý phức tạp/đặc thù.</li>
+                <li><strong>Class-Based View (CBV):</strong> Viết bằng class kế thừa <code>View</code>, <code>ListView</code>, <code>CreateView</code>. Tách phương thức theo tên hàm <code>get(self, request)</code>, <code>post(self, request)</code>. Ưu điểm: Tái sử dụng code cực nhanh cho CRUD chuẩn qua kế thừa và <code>Mixin</code> (như <code>LoginRequiredMixin</code>).</li>
+              </ul>
+            </li>
+            <li><strong>Câu 39 (<code>request</code> & <code>response</code>):</strong>
+              <code>request</code> chứa <code>request.GET</code> (query params <code>?page=2</code>), <code>request.POST</code> (form body), <code>request.FILES</code> (file upload), <code>request.user</code> (user đang đăng nhập), <code>request.session</code>, <code>request.headers</code>.
+              <code>response</code> trả về <code>HttpResponse</code>, <code>JsonResponse({"status": "ok"})</code>, hoặc <code>redirect()</code>.
+            </li>
+            <li><strong>Câu 40 (Template Inheritance):</strong> Tạo khung giao diện chung ở <code>base.html</code> với các lỗ trống <code>{% block content %}{% endblock %}</code>. Các trang con kế thừa bằng <code>{% extends "base.html" %}</code> để không phải lặp lại Header/Footer. Dùng <code>{% include "navbar.html" %}</code> để nhúng component nhỏ.</li>
+            <li><strong>Câu 41 (<code>Form</code> vs <code>ModelForm</code>):</strong>
+              <code>forms.Form</code> khai báo thủ công từng trường (dùng cho form không gắn trực tiếp với 1 bảng như Form Liên hệ, Form Đăng nhập, Form Tìm kiếm).
+              <code>forms.ModelForm</code> tự động sinh các trường từ <code>Model</code> và có sẵn hàm <code>form.save()</code> để lưu thẳng vào Database! Dữ liệu hợp lệ sau khi gọi <code>form.is_valid()</code> nằm trong <code>form.cleaned_data</code>.</li>
+            <li><strong>Câu 42 (CSRF Protection trong Django):</strong>
+              Khi render trang HTML, Django cấp một <code>csrf_token</code> ngẫu nhiên (trong cookie và thẻ ẩn <code>{% csrf_token %}</code> trong form). Khi người dùng gửi <code>POST/PUT/DELETE</code>, <code>CsrfViewMiddleware</code> so sánh token trong form/header <code>X-CSRFToken</code> với token của phiên. Nếu trang web độc hại bên thứ 3 giả mạo gửi form POST sang, nó không đọc được <code>csrf_token</code> nên bị chặn ngay với lỗi <code>403 Forbidden</code>!</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           2.4 ADMIN, AUTH, MIDDLEWARE (CÂU 43 - CÂU 46)
+           ========================================== -->
+      <h3 id="sec2-4">2.4 Admin, Auth, Middleware & Session (Câu 43 – Câu 46)</h3>
+
+      <div class="qa-block">
+        <div class="q-title">Câu 43 – 46: Tùy biến Django Admin? Authentication vs Authorization? Middleware? Session vs Cookie?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong>Câu 43 (Tùy biến Django Admin):</strong> Trong <code>ModelAdmin</code>, ta tùy biến:
+              <code>list_display</code> (các cột hiển thị trên bảng), <code>search_fields</code> (ô tìm kiếm), <code>list_filter</code> (bộ lọc bên phải), <code>readonly_fields</code> (trường chỉ đọc), <code>prepopulated_fields = {"slug": ("title",)}</code>, và <code>inlines = [CommentInline]</code> (chỉnh sửa bảng con ngay trong trang bảng cha).</li>
+            <li><strong>Câu 44 (Authentication vs Authorization):</strong>
+              <ul>
+                <li><strong>Authentication (Xác thực — "Bạn là ai?"):</strong> Kiểm tra username/password hoặc token thông qua <code>authenticate()</code>, <code>login()</code>, gắn vào <code>request.user</code>.</li>
+                <li><strong>Authorization (Phân quyền — "Bạn được phép làm gì?"):</strong> Kiểm tra quyền hạn qua <code>user.is_staff</code>, <code>user.is_superuser</code>, Groups, và <code>user.has_perm('blog.delete_post')</code>.</li>
+              </ul>
+            </li>
+            <li><strong>Câu 45 (Middleware — Mô hình củ hành Onion):</strong> Là các lớp bọc ngoài toàn bộ các View. Khi Request đi vào, nó đi từ <strong>trên xuống dưới</strong> qua từng Middleware (Kiểm tra bảo mật ➡️ Đọc Session ➡️ Gắn <code>request.user</code> ➡️ Kiểm tra CSRF); khi Response đi ra, nó đi ngược từ <strong>dưới lên trên</strong>. Ứng dụng: Ghi log thời gian xử lý API, kiểm tra JWT/CORS, Rate Limiting.</li>
+            <li><strong>Câu 46 (Session vs Cookie):</strong>
+              <ul>
+                <li><strong>Cookie:</strong> Lưu trữ <strong>trên trình duyệt của Client</strong> (tối đa ~4KB), gửi kèm trong mỗi HTTP request.</li>
+                <li><strong>Session:</strong> Dữ liệu nhạy cảm (<code>user_id</code>, giỏ hàng) được lưu <strong>trên Server (Database hoặc Redis)</strong>, còn trình duyệt chỉ giữ một chuỗi mã ngẫu nhiên vô nghĩa là <code>sessionid</code> bên trong Cookie!</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           2.5 DRF, SECURITY, DEPLOYMENT (CÂU 47 - CÂU 52)
+           ========================================== -->
+      <h3 id="sec2-5">2.5 API (DRF), Security & Deployment (Câu 47 – Câu 52)</h3>
+
+      <div class="qa-block">
+        <div class="q-title">Câu 47 – 52: Django REST Framework (Serializer, ViewSet)? JWT vs Session? Bảo mật? Static vs Media? Checklist Deploy?</div>
+        <div class="a-box">
+          <ul>
+            <li><strong>Câu 47 & 48 (DRF & Serializer):</strong>
+              <strong>Django REST Framework (DRF)</strong> là bộ công cụ chuẩn để viết RESTful API trong Django.
+              <strong><code>Serializer</code></strong> đóng 2 vai trò:
+              <ol>
+                <li><strong>Serialization (Chiều ra):</strong> Biến đổi Django Model / QuerySet thành dữ liệu Python dict ➡️ <code>JSON</code> trả về cho Frontend/Mobile.</li>
+                <li><strong>Deserialization & Validation (Chiều vào):</strong> Nhận JSON từ client, kiểm tra tính hợp lệ (<code>serializer.is_valid()</code>, <code>validate_&lt;field&gt;</code>, <code>validate()</code>) và lưu xuống DB qua <code>serializer.save()</code>.</li>
+              </ol>
+            </li>
+            <li><strong>Câu 49 (Token/JWT vs Session Auth):</strong>
+              Session Auth là <strong>Stateful</strong> (Server phải tra cứu DB/Redis mỗi request, gắn chặt với Cookie nên hợp với Web SSR truyền thống).
+              <strong>JWT (JSON Web Token)</strong> là <strong>Stateless</strong> (Payload chứa <code>user_id</code>, thời hạn <code>exp</code> và được ký bằng <code>SECRET_KEY</code> — Server xác thực chữ ký ngay trong RAM mà không cần query DB, truyền qua header <code>Authorization: Bearer &lt;token&gt;</code> nên cực kỳ phù hợp cho React/Vue SPA, Mobile App iOS/Android và Microservices).</li>
+            <li><strong>Câu 50 (5 Lỗi Bảo Mật Phổ Biến Khi Làm Django):</strong>
+              <ol>
+                <li>Để quên <code>DEBUG = True</code> trên Production (lộ toàn bộ biến môi trường và cấu trúc code khi có lỗi 500!).</li>
+                <li>Hardcode <code>SECRET_KEY</code> hoặc password DB đẩy lên Git.</li>
+                <li><strong>SQL Injection:</strong> Nối chuỗi f-string trực tiếp vào <code>Model.objects.raw(f"SELECT ... WHERE name = '{name}'")</code> thay vì truyền tham số <code>params=[name]</code>.</li>
+                <li><strong>XSS (Cross-Site Scripting):</strong> Dùng bừa bãi filter <code>{{ user_input|safe }}</code> hoặc <code>mark_safe()</code> tắt cơ chế auto-escape của Django.</li>
+                <li>Để <code>ALLOWED_HOSTS = ['*']</code> hoặc tắt <code>CsrfViewMiddleware</code>.</li>
+              </ol>
+            </li>
+            <li><strong>Câu 51 (Static Files vs Media Files):</strong>
+              <ul>
+                <li><strong>Static Files (<code>STATIC_URL</code>, <code>STATIC_ROOT</code>):</strong> Là file CSS, JS, logo, icon cố định của hệ thống do lập trình viên viết. Khi deploy chạy <code>python manage.py collectstatic</code> để gom về 1 thư mục cho Nginx hoặc WhiteNoise/CDN phục vụ.</li>
+                <li><strong>Media Files (<code>MEDIA_URL</code>, <code>MEDIA_ROOT</code>):</strong> Là file do <strong>người dùng upload lên</strong> trong lúc chạy (ảnh đại diện, CV PDF, ảnh sản phẩm). Trên production thường lưu lên AWS S3 / Cloudflare R2 / MinIO qua <code>django-storages</code>.</li>
+              </ul>
+            </li>
+            <li><strong>Câu 52 (Checklist Deploy Django Lên Production):</strong>
+              1. Đặt <code>DEBUG = False</code> và khai báo <code>ALLOWED_HOSTS = ['yourdomain.com']</code>.<br/>
+              2. Đưa <code>SECRET_KEY</code>, <code>DATABASE_URL</code>, <code>REDIS_URL</code> vào biến môi trường (<code>.env</code> / Secret Manager).<br/>
+              3. Chạy <code>python manage.py migrate --noinput</code> và <code>python manage.py collectstatic --noinput</code>.<br/>
+              4. Không bao giờ dùng <code>runserver</code> trên prod! Chạy qua WSGI/ASGI server như <strong>Gunicorn</strong> hoặc <strong>Uvicorn</strong> đứng sau <strong>Nginx Reverse Proxy</strong> (bật HTTPS/SSL, giới hạn <code>client_max_body_size</code>).
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         PHẦN 3: CÂU HỎI THỰC HÀNH PYTHON (BÀI 1 - BÀI 5)
+         ========================================== -->
+    <div class="card" id="sec3">
+      <h2>3. 💻 Giải Chi Tiết 5 Bài Thực Hành Code Python <span class="tag">Live Coding Python</span></h2>
+
+      <!-- Bài 1 -->
+      <div class="qa-block">
+        <div class="q-title">Bài 1: Viết hàm kiểm tra một chuỗi có phải Palindrome (đối xứng) hay không (Bỏ qua hoa/thường và khoảng trắng).</div>
+        <pre class="code">def is_palindrome(s: str) -> bool:
+    """
+    Kiểm tra chuỗi đối xứng, bỏ qua khoảng trắng và phân biệt hoa/thường.
+    Độ phức tạp: Time O(N), Space O(1) nếu dùng 2 con trỏ (Two Pointers)!
+    """
+    # Cách 1 (Ngắn gọn Pythonic - Time O(N), Space O(N)):
+    cleaned = "".join(ch.lower() for ch in s if not ch.isspace())
+    return cleaned == cleaned[::-1]
+
+
+def is_palindrome_two_pointers(s: str) -> bool:
+    """Cách 2 (Điểm cộng phỏng vấn - Two Pointers tối ưu bộ nhớ Space O(1)):"""
+    left, right = 0, len(s) - 1
+    while left < right:
+        while left < right and s[left].isspace():
+            left += 1
+        while left < right and s[right].isspace():
+            right -= 1
+        if s[left].lower() != s[right].lower():
+            return False
+        left += 1
+        right -= 1
+    return True
+
+# Test:
+print(is_palindrome("Never odd or even"))  # True
+print(is_palindrome("Hello World"))        # False</pre>
+      </div>
+
+      <!-- Bài 2 -->
+      <div class="qa-block">
+        <div class="q-title">Bài 2: Viết hàm đếm tần suất xuất hiện của từng từ trong một đoạn văn (Trả về <code>dict</code>, xử lý dấu câu cơ bản).</div>
+        <pre class="code">import re
+from collections import Counter
+
+def count_word_frequency(text: str) -> dict[str, int]:
+    """
+    Tách từ bằng Regex (bỏ dấu câu .,!?;:), chuyển về chữ thường và đếm tần suất.
+    Độ phức tạp: Time O(N), Space O(U) với U là số từ duy nhất.
+    """
+    # \w+ khớp với các chữ cái/chữ số (tự động loại bỏ dấu chấm, phẩy, khoảng trắng)
+    words = re.findall(r"\w+", text.lower())
+
+    # Cách 1: Dùng dict thuần (thể hiện tư duy thuật toán)
+    freq: dict[str, int] = {}
+    for word in words:
+        freq[word] = freq.get(word, 0) + 1
+    return freq
+
+    # (Hoặc Cách 2 dùng thư viện chuẩn: return dict(Counter(words)))
+
+# Test:
+print(count_word_frequency("Python is great, and python is fast!"))
+# Output: {'python': 2, 'is': 2, 'great': 1, 'and': 1, 'fast': 1}</pre>
+      </div>
+
+      <!-- Bài 3 -->
+      <div class="qa-block">
+        <div class="q-title">Bài 3: Tìm phần tử xuất hiện nhiều nhất trong một <code>list</code> (Phân tích độ phức tạp, xử lý trường hợp hòa).</div>
+        <pre class="code">from typing import Any
+
+def find_most_frequent(items: list[Any]) -> list[Any]:
+    """
+    Trả về danh sách các phần tử có số lần xuất hiện cao nhất (xử lý cả trường hợp hòa).
+    - Time Complexity: O(N) (Duyệt qua list 1 lần để đếm trên Hash Table + 1 lần tìm max)
+    - Space Complexity: O(K) với K là số phần tử phân biệt trong list.
+    """
+    if not items:
+        return []
+
+    counts: dict[Any, int] = {}
+    max_count = 0
+
+    for item in items:
+        new_count = counts.get(item, 0) + 1
+        counts[item] = new_count
+        if new_count > max_count:
+            max_count = new_count
+
+    # Lấy tất cả phần tử đạt max_count (xử lý trường hợp hòa nhau!)
+    return [item for item, count in counts.items() if count == max_count]
+
+# Test:
+print(find_most_frequent([1, 2, 2, 3, 3, 4]))  # Output: [2, 3] (Cùng xuất hiện 2 lần!)</pre>
+      </div>
+
+      <!-- Bài 4 -->
+      <div class="qa-block">
+        <div class="q-title">Bài 4: Viết Decorator đo thời gian chạy của một function (Dùng <code>time.perf_counter</code>, giữ metadata bằng <code>functools.wraps</code>).</div>
+        <pre class="code">import time
+from functools import wraps
+from typing import Callable, Any
+
+def measure_time(func: Callable) -> Callable:
+    @wraps(func)  # Giữ nguyên func.__name__ và func.__doc__
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
+        start_time = time.perf_counter()
+        try:
+            return func(*args, **kwargs)
+        finally:
+            # Đặt trong finally để kể cả hàm văng Exception vẫn đo được thời gian chạy!
+            elapsed_ms = (time.perf_counter() - start_time) * 1000
+            print(f"[TIMER] Hàm '{func.__name__}' chạy mất {elapsed_ms:.2f} ms")
+    return wrapper
+
+@measure_time
+def heavy_computation(n: int) -> int:
+    """Tính tổng bình phương."""
+    return sum(i * i for i in range(n))
+
+heavy_computation(1_000_000)</pre>
+      </div>
+
+      <!-- Bài 5 -->
+      <div class="qa-block">
+        <div class="q-title">Bài 5: Đọc file CSV lớn (vài GB) và xử lý từng dòng mà không load toàn bộ vào memory (Dùng Generator + Context Manager).</div>
+        <pre class="code">import csv
+from typing import Iterator
+
+def read_large_csv(file_path: str) -> Iterator[dict[str, str]]:
+    """
+    Sử dụng 'with' (Context Manager) để tự động đóng file,
+    và 'yield' (Generator) để chỉ giữ đúng 1 dòng trong RAM tại mỗi thời điểm (Space O(1)).
+    """
+    with open(file_path, mode="r", encoding="utf-8", newline="") as csv_file:
+        reader = csv.DictReader(csv_file)
+        for row in reader:
+            yield row
+
+# Cách sử dụng (Xử lý file 10 GB chỉ tốn ~5 MB RAM):
+# for record in read_large_csv("orders_10gb.csv"):
+#     if float(record["amount"]) > 1000:
+#         process_high_value_order(record)</pre>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         PHẦN 4: CÂU HỎI THỰC HÀNH DJANGO (BÀI 6 - BÀI 10)
+         ========================================== -->
+    <div class="card" id="sec4">
+      <h2>4. 🚀 Giải Chi Tiết 5 Bài Thực Hành Django & DRF <span class="tag">Live Coding Django</span></h2>
+
+      <!-- Bài 6 -->
+      <div class="qa-block">
+        <div class="q-title">Bài 6: Tạo model <code>BlogPost</code> gồm <code>title</code>, <code>slug</code>, <code>content</code>, <code>author</code>, <code>created_at</code>, <code>updated_at</code> (thêm <code>ordering</code>, <code>__str__</code>, <code>unique slug</code>).</div>
+        <pre class="code"># blog/models.py
+from django.db import models
+from django.contrib.auth import get_user_model
+from django.utils.text import slugify
+
+User = get_user_model()
+
+class BlogPost(models.Model):
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True)
+    content = models.TextField()
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="blog_posts"
+    )
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_at"]  # Mặc định sắp xếp bài mới nhất lên đầu
+        indexes = [
+            models.Index(fields=["author", "-created_at"], name="idx_author_created"),
+        ]
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def __str__(self) -> str:
+        return f"{self.title} (by {self.author})"
+</pre>
+      </div>
+
+      <!-- Bài 7 & Bài 10 -->
+      <div class="qa-block">
+        <div class="q-title">Bài 7 & Bài 10: Viết API List/Create/Update/Delete <code>BlogPost</code> bằng Django REST Framework + Permission chỉ tác giả mới được sửa/xóa bài viết của mình.</div>
+        <pre class="code"># blog/serializers.py
+from rest_framework import serializers
+from .models import BlogPost
+
+class BlogPostSerializer(serializers.ModelSerializer):
+    author_username = serializers.ReadOnlyField(source="author.username")
+
+    class Meta:
+        model = BlogPost
+        fields = ["id", "title", "slug", "content", "author", "author_username", "created_at", "updated_at"]
+        read_only_fields = ["id", "author", "created_at", "updated_at"]
+
+
+# blog/permissions.py (Giải Bài 10: Custom Object-Level Permission)
+from rest_framework import permissions
+
+class IsAuthorOrReadOnly(permissions.BasePermission):
+    """
+    Ai cũng xem được (GET, HEAD, OPTIONS),
+    nhưng chỉ Tác giả (obj.author == request.user) mới được Sửa/Xóa (PUT, PATCH, DELETE)!
+    """
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.author_id == request.user.id
+
+
+# blog/views.py (Giải Bài 7 + Bài 8 + Bài 10)
+from rest_framework import viewsets, permissions
+from .models import BlogPost
+from .serializers import BlogPostSerializer
+from .permissions import IsAuthorOrReadOnly
+
+class BlogPostViewSet(viewsets.ModelViewSet):
+    serializer_class = BlogPostSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
+
+    def get_queryset(self):
+        # Tối ưu luôn N+1 query với select_related("author")!
+        return BlogPost.objects.select_related("author").all()
+
+    def perform_create(self, serializer):
+        # Tự động gán người tạo bài viết là user đang đăng nhập
+        serializer.save(author=self.request.user)</pre>
+      </div>
+
+      <!-- Bài 8 -->
+      <div class="qa-block">
+        <div class="q-title">Bài 8: Tối ưu trang danh sách bài viết đang bị N+1 Query với <code>author</code> và <code>comments</code> (Giải thích <code>select_related</code> / <code>prefetch_related</code> và cách kiểm tra số query).</div>
+        <pre class="code"># ❌ CODE BỊ N+1 QUERY (Nếu có 20 bài viết -> Chạy 1 + 20 (author) + 20 (comments) = 41 câu SQL!):
+posts = BlogPost.objects.all()[:20]
+for post in posts:
+    print(post.author.username)       # Mỗi vòng lặp bắn 1 câu SQL lấy author!
+    print(post.comments.count())      # Mỗi vòng lặp bắn 1 câu SQL lấy comments!
+
+
+# ✅ CODE ĐÃ TỐI ƯU (Chỉ chạy ĐÚNG 2 câu SQL tổng cộng dù có bao nhiêu bài viết!):
+from django.db.models import Count
+
+posts = (
+    BlogPost.objects
+    .select_related("author")          # 1. JOIN bảng User (vì author là ForeignKey N-1)
+    .prefetch_related("comments")      # 2. Gom lấy toàn bộ comments bằng 1 câu WHERE post_id IN (...)
+    .annotate(comment_count=Count("comments"))
+    [:20]
+)
+
+# 🔍 CÁCH KIỂM TRA SỐ LƯỢNG QUERY TRONG UNIT TEST / SHELL:
+from django.db import connection, reset_queries
+from django.test import TestCase
+
+# Cách 1: Trong Unit Test (Chuẩn nhất):
+# with self.assertNumQueries(2):
+#     list(BlogPost.objects.select_related("author").prefetch_related("comments")[:20])
+
+# Cách 2: Dùng CaptureQueriesContext (Hoạt động cả khi DEBUG=False):
+from django.test.utils import CaptureQueriesContext
+with CaptureQueriesContext(connection) as ctx:
+    for p in BlogPost.objects.select_related("author").prefetch_related("comments")[:20]:
+        _ = p.author.username
+        _ = list(p.comments.all())
+print(f"Tổng số câu SQL đã chạy: {len(ctx.captured_queries)}")  # In ra: 2</pre>
+      </div>
+
+      <!-- Bài 9 -->
+      <div class="qa-block">
+        <div class="q-title">Bài 9: Viết Form đăng ký User và validate email không được trùng (<code>clean_email</code>, hiển thị lỗi ở template).</div>
+        <pre class="code"># users/forms.py
+from django import forms
+from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+
+User = get_user_model()
+
+class UserRegistrationForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ["username", "email", "password"]
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email", "").strip().lower()
+        # Kiểm tra không phân biệt hoa/thường bằng iexact
+        if User.objects.filter(email__iexact=email).exists():
+            raise ValidationError("Email này đã được sử dụng. Vui lòng chọn email khác!")
+        return email
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])  # Băm mật khẩu an toàn!
+        if commit:
+            user.save()
+        return user</pre>
+        <pre class="code">&lt;!-- templates/register.html --&gt;
+&lt;form method="post" novalidate&gt;
+  {% csrf_token %}
+  &lt;div&gt;
+    {{ form.email.label_tag }}
+    {{ form.email }}
+    {% if form.email.errors %}
+      &lt;div class="error" style="color: red;"&gt;
+        {{ form.email.errors|striptags }}
+      &lt;/div&gt;
+    {% endif %}
+  &lt;/div&gt;
+  &lt;button type="submit"&gt;Đăng ký&lt;/button&gt;
+&lt;/form&gt;</pre>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         PHẦN 5: 5 TÌNH HUỐNG PHỎNG VẤN THỰC TẾ
+         ========================================== -->
+    <div class="card" id="sec5">
+      <h2>5. 🔥 Giải Chi Tiết 5 Câu Hỏi Tình Huống Phỏng Vấn Thực Tế <span class="tag">Scenario Questions</span></h2>
+
+      <!-- Tình huống 1 -->
+      <div class="qa-block">
+        <div class="q-title">Tình huống 1: API Django phản hồi chậm (mất 3–5 giây), bạn debug và tối ưu như thế nào?</div>
+        <div class="a-box">
+          <strong>✅ Quy trình 5 bước của Senior Backend Engineer:</strong>
+          <ol>
+            <li><strong>Bước 1 — Đo đạc & Xác định tầng bị nghẽn:</strong> Kiểm tra log thời gian phản hồi / APM (Sentry, Datadog, Prometheus) hoặc dùng <code>django-debug-toolbar</code> / <code>django-silk</code> ở môi trường dev/staging để biết 5 giây đó nằm ở <strong>Database Query</strong>, <strong>External API</strong> hay <strong>Python Serialization</strong>.</li>
+            <li><strong>Bước 2 — Xử lý N+1 Query & Thừa Dữ Liệu:</strong> Kiểm tra xem API có đang bắn 200 câu SQL lặp trong Serializer (`SerializerMethodField`) không ➡️ Thêm <code>select_related()</code> và <code>prefetch_related()</code>. Chỉ lấy các cột cần thiết bằng <code>.only()</code> / <code>.values()</code> và bắt buộc bật <strong>Pagination</strong> (<code>LimitOffsetPagination</code> hoặc <code>CursorPagination</code>).</li>
+            <li><strong>Bước 3 — Kiểm tra Database Index:</strong> Lấy câu SQL chậm chạy <code>EXPLAIN ANALYZE</code> trên PostgreSQL. Nếu bị <code>Seq Scan</code> (Full Table Scan), thêm <code>db_index=True</code> hoặc Composite Index <code>models.Index(fields=['user', 'status', '-created_at'])</code>.</li>
+            <li><strong>Bước 4 — Đẩy tác vụ phụ sang Background Worker (Celery + Redis/RabbitMQ):</strong> Nếu trong API có gửi email, tạo PDF, bắn webhook sang bên thứ 3 ➡️ Đẩy sang <code>task.delay()</code> của Celery để API trả kết quả ngay trong 50ms.</li>
+            <li><strong>Bước 5 — Caching với Redis:</strong> Với các API đọc nhiều ít sửa (danh sách danh mục, cấu hình, bài viết hot), lưu cache vào Redis qua <code>cache.get() / cache.set()</code>.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Tình huống 2 -->
+      <div class="qa-block">
+        <div class="q-title">Tình huống 2: Sau khi deploy lên server Production (khi tắt <code>DEBUG = False</code>), toàn bộ Static Files (CSS/JS của trang Admin) không load được (lỗi 404/403). Bạn kiểm tra những gì?</div>
+        <div class="a-box">
+          <strong>✅ Nguyên nhân gốc:</strong> Khi <code>DEBUG = False</code>, Django <strong>tự động ngừng phục vụ file tĩnh</strong> vì lý do hiệu năng và bảo mật!
+          <br/><strong>4 bước kiểm tra & khắc phục:</strong>
+          <ol>
+            <li>Kiểm tra trong <code>settings.py</code> đã cấu hình <code>STATIC_URL = '/static/'</code> và đường dẫn tuyệt đối <code>STATIC_ROOT = BASE_DIR / 'staticfiles'</code> chưa.</li>
+            <li>Kiểm tra CI/CD hoặc Dockerfile đã chạy lệnh <code>python manage.py collectstatic --noinput</code> để gom toàn bộ file CSS/JS về thư mục <code>STATIC_ROOT</code> chưa.</li>
+            <li>Kiểm tra cấu hình <strong>Nginx</strong> khối <code>location /static/ { alias /path/to/staticfiles/; }</code> có trỏ đúng vào thư mục <code>STATIC_ROOT</code> không (hoặc cài thư viện <strong><code>WhiteNoise</code></strong> vào <code>MIDDLEWARE</code> nếu chạy trên Docker/K8s không mount volume chung với Nginx).</li>
+            <li>Kiểm tra quyền đọc file trên Linux (<strong>File Permissions</strong>): User chạy Nginx (<code>www-data</code> / <code>nginx</code>) có quyền đọc (<code>chmod 755</code>) thư mục <code>staticfiles</code> hay không (nếu sai quyền sẽ báo lỗi <code>403 Forbidden</code>).</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Tình huống 3 -->
+      <div class="qa-block">
+        <div class="q-title">Tình huống 3: Migration bị conflict khi nhiều developer cùng sửa <code>models.py</code> trên các nhánh Git khác nhau (cùng sinh ra <code>0005_...py</code>). Xử lý ra sao?</div>
+        <div class="a-box">
+          <strong>✅ Cách xử lý chuẩn:</strong>
+          When Dev A tạo <code>0005_add_phone.py</code> và Dev B tạo <code>0005_add_avatar.py</code>, khi merge vào nhánh `main`, Django sẽ báo lỗi <em>"Conflicting migrations detected; multiple leaf nodes in the migration graph"</em>.
+          <ol>
+            <li><strong>Nếu 2 migration sửa các trường/bảng không đụng nhau:</strong> Chạy lệnh <code>python manage.py makemigrations --merge</code>. Django sẽ tự động tạo file <code>0006_merge_20261021.py</code> phụ thuộc vào cả 2 file <code>0005</code> để nối lại đồ thị migration!</li>
+            <li><strong>Cách sạch hơn trước khi merge PR:</strong> Dev B pull nhánh `main` về, xóa file <code>0005_add_avatar.py</code> ở nhánh của mình đi, rồi chạy lại <code>python manage.py makemigrations</code> để nó tự động sinh ra thành <code>0006_add_avatar.py</code> nối đuôi sau <code>0005</code> của Dev A.</li>
+            <li>Luôn thêm bước kiểm tra <code>python manage.py makemigrations --check --dry-run</code> vào CI/CD Pipeline để chặn PR bị lệch migration ngay từ trên GitHub/GitLab!</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Tình huống 4 -->
+      <div class="qa-block">
+        <div class="q-title">Tình huống 4: User upload file quá lớn (ảnh/video 100MB) làm nghẽn toàn bộ worker Django. Bạn xử lý thế nào?</div>
+        <div class="a-box">
+          <strong>✅ Giải pháp 4 tầng (Từ chặn sớm đến kiến trúc Cloud):</strong>
+          <ol>
+            <li><strong>Chặn ngay ở tầng Nginx / Load Balancer:</strong> Cấu hình <code>client_max_body_size 10M;</code> trên Nginx để từ chối file quá giới hạn ngay từ ngoài cửa trước khi chạm vào Django.</li>
+            <li><strong>Validate ở Django Serializer/Form:</strong> Kiểm tra kích thước (<code>file.size &lt;= 10 * 1024 * 1024</code>), phần mở rộng (<code>.jpg, .png, .pdf</code>) và <strong>Magic Bytes / MIME type thật của file</strong> (tránh hacker đổi tên file <code>malware.exe</code> thành <code>avatar.jpg</code>).</li>
+            <li><strong>Upload trực tiếp từ Browser lên AWS S3 / Cloudflare R2 bằng Presigned URL (Tối ưu nhất!):</strong> Django chỉ mất 2ms để ký và trả về 1 <strong>Presigned Upload URL</strong>. Trình duyệt của user tự đẩy file 100MB thẳng lên S3 mà <strong>không đi xuyên qua RAM/Worker của Django</strong>!</li>
+            <li><strong>Xử lý hậu kỳ bất đồng bộ:</strong> Nếu cần nén ảnh, đóng dấu watermark hay cắt video, đẩy vào <strong>Celery Worker</strong> chạy ngầm sau khi S3 báo upload thành công.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Tình huống 5 -->
+      <div class="qa-block">
+        <div class="q-title">Tình huống 5: Làm thế nào để tránh lộ <code>SECRET_KEY</code> và Database Password? Nếu lỡ bị lộ lên Git thì xử lý thế nào?</div>
+        <div class="a-box">
+          <strong>✅ Cách phòng ngừa & Quy trình ứng cứu khi lộ Secret:</strong>
+          <ul>
+            <li><strong>Phòng ngừa:</strong>
+              <ol>
+                <li>Đọc toàn bộ thông tin nhạy cảm qua biến môi trường (dùng <code>os.environ</code>, <code>django-environ</code> hoặc <code>pydantic-settings</code>).</li>
+                <li>Đưa file <code>.env</code> vào <code>.gitignore</code> ngay từ commit đầu tiên (chỉ commit file mẫu <code>.env.example</code> chứa giá trị rỗng).</li>
+                <li>Trên Production: Dùng <strong>AWS Secrets Manager / Parameter Store</strong>, <strong>Vault</strong>, hoặc <strong>Kubernetes Secrets</strong>. Cài đặt <code>gitleaks</code> / <code>pre-commit</code> hook để chặn tự động nếu dev vô tình commit khóa bí mật.</li>
+              </ol>
+            </li>
+            <li><strong>⚠️ Nếu lỡ commit lộ <code>SECRET_KEY</code> hoặc DB Password lên Git:</strong>
+              <br/>Chỉ xóa dòng đó và tạo commit mới là <strong>VÔ ÍCH</strong> vì key vẫn nằm trong lịch sử Git (<code>git log</code>)!
+              <br/>👉 <strong>Việc phải làm ngay lập tức:</strong> <strong>Xoay vòng khóa (Rotate Secret)</strong> — Đổi mật khẩu DB mới và sinh <code>SECRET_KEY</code> mới ngay lập tức trên Production để key cũ bị vô hiệu hóa hoàn toàn!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

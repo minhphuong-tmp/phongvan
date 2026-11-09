@@ -1,0 +1,17 @@
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore embedded repositories and large projects
+github project*
+**/github project*
+**/github project*/**
+**/github project*/*
+**/github project microservices
+**/github project microservices/**
+
+# Local environment
+.env
+.env.local
