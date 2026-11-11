@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎯 Interview Master Hub — Cẩm Nang Câu Hỏi & Trả Lời Phỏng Vấn Chuyên Sâu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #0b1120;
+      --bg-card: #1e293b;
+      --bg-card-hover: #273549;
+      --border: #334155;
+      --border-accent: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --green: #4ade80;
+      --yellow: #facc15;
+      --purple: #c084fc;
+      --orange: #fb923c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      width: 100%;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .header .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin: 0 auto 28px;
+    }
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .stat-pill {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stat-pill strong {
+      color: #fff;
+      font-size: 1.05rem;
+    }
+    
+    /* SEARCH BAR */
+    .search-wrapper {
+      max-width: 760px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      padding: 16px 20px 16px 50px;
+      background: #0f172a;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      color: #fff;
+      font-size: 1.05rem;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-glow), 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    .search-hints {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      padding-left: 6px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+    .hint-tag {
+      cursor: pointer;
+      background: rgba(255,255,255,0.06);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.15s;
+    }
+    .hint-tag:hover {
+      background: var(--accent);
+      color: #0b1120;
+    }
+
+    /* GRID OF GUIDES */
+    .guides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px;
+    }
+    .guide-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+    }
+    .guide-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: transparent;
+      transition: background 0.25s;
+    }
+    .guide-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-accent);
+      background: var(--bg-card-hover);
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.7);
+    }
+    .guide-card.card-python:hover::before { background: #38bdf8; }
+    .guide-card.card-django:hover::before { background: #4ade80; }
+    .guide-card.card-node:hover::before { background: #22c55e; }
+    .guide-card.card-express:hover::before { background: #facc15; }
+    .guide-card.card-vue:hover::before { background: #42b883; }
+    .guide-card.card-architecture:hover::before { background: #c084fc; }
+
+    .card-top {
+      margin-bottom: 16px;
+    }
+    .card-header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .card-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+    .count-badge {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      color: #fff;
+    }
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .card-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+    .tags-container {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+    }
+    .card-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .card-footer span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s;
+    }
+    .guide-card:hover .card-footer span {
+      transform: translateX(4px);
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border);
+      padding: 28px 20px;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      background: #080d19;
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      .guides-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <div class="badge">🚀 100% Offline &amp; Interactive Guides</div>
+      <h1>🎯 Interview Master Hub</h1>
+      <p class="subtitle">
+        Cẩm nang câu hỏi &amp; lời giải phỏng vấn chuyên sâu kèm code thực chiến, phân tích cơ chế hoạt động chuyên sâu (Under the hood) &amp; mẹo phỏng vấn Senior.
+      </p>
+
+      <div class="stats-bar">
+        <div class="stat-pill">
+          <span>📚 Bộ Cẩm Nang:</span>
+          <strong>7 Guides</strong>
+        </div>
+        <div class="stat-pill">
+          <span>🔥 Tổng Câu Hỏi &amp; Đáp Án:</span>
+          <strong>450+ Câu</strong>
+        </div>
+        <div class="stat-pill">
+          <span>⚡ Tính Năng:</span>
+          <strong>Live Search &amp; Code Copy 1-Click</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- GLOBAL SEARCH -->
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        id="globalSearch" 
+        class="search-input" 
+        placeholder="Gõ công nghệ hoặc từ khóa (vd: GIL, event loop, middleware, reactive, reverse proxy, STAR)..." 
+        oninput="handleSearch()"
+        autocomplete="off"
+      />
+      <div class="search-hints">
+        <span>Từ khóa gợi ý:</span>
+        <span class="hint-tag" onclick="setQuery('python')">python</span>
+        <span class="hint-tag" onclick="setQuery('django')">django</span>
+        <span class="hint-tag" onclick="setQuery('nodejs')">nodejs</span>
+        <span class="hint-tag" onclick="setQuery('express')">express</span>
+        <span class="hint-tag" onclick="setQuery('vue')">vue</span>
+        <span class="hint-tag" onclick="setQuery('nginx')">nginx</span>
+        <span class="hint-tag" onclick="setQuery('star')">STAR</span>
+        <span class="hint-tag" onclick="setQuery('database')">database</span>
+      </div>
+    </div>
+
+    <!-- GUIDES LIST -->
+    <div class="guides-grid" id="guidesGrid">
+
+      <!-- Guide 1: Python 100 Qs -->
+      <a href="devinterview_python_100_answers.html" class="guide-card card-python" data-keywords="python gil memory garbage collection decorator generator metaclass concurrency asyncio devinterview oop threading multiprocessing yield iterator">
+        <div class="card-top">
+          <div class="card-header-flex">
+            <span class="card-icon">🐍</span>
+            <span class="count-badge">100 Câu Hỏi</span>
+          </div>
+          <h2 class="card-title">Python Core &amp; Advanced</h2>
+          <p class="card-desc">
+            Trọn bộ 100 câu hỏi phỏng vấn chuẩn quốc tế (Devinterview.io): Bản chất GIL, Memory Management, GC cycle, Decorator, Generator, Metaclass, Concurrency &amp; Asyncio.
+          </p>
+          <div class="tags-container">
+            <span class="tag">Python 3.12+</span>
+            <span class="tag">GIL</span>
+            <span class="tag">Decorators</span>
+            <span class="tag">Generators</span>
+            <span class="tag">Asyncio</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span>Khám phá cẩm nang Python &rarr;</span>
+          <span>Junior &bull; Mid &bull; Senior</span>
+        </div>
+      </a>
+
+      <!-- Guide 2: Python & Django Chuyên Sâu (67 Qs) -->
+      <a href="python_interview_answers.html" class="guide-card card-python" data-keywords="python django orm select_related prefetch_related middleware csrf jwt authentication celery caching s3 presigned url secret_key code tình huống thực chiến live coding">
+        <div class="card-top">
+          <div class="card-header-flex">
+            <span class="card-icon">🧪</span>
+            <span class="count-badge">67 Câu &amp; Bài Test</span>
+          </div>
+          <h2 class="card-title">Python &amp; Django Thực Chiến</h2>
+          <p class="card-desc">
+            52 câu lý thuyết cốt lõi + 10 bài test thực hành code trực tiếp + 5 tình huống xử lý sự cố Production (N+1 query, S3 Presigned URL nghẽn worker, rò rỉ Secret Key).
+          </p>
+          <div class="tags-container">
+            <span class="tag">52 Lý Thuyết</span>
+            <span class="tag">10 Live Coding</span>
+            <span class="tag">5 Sự Cố Production</span>
+            <span class="tag">Mermaid Flowcharts</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span>Xem lời giải &amp; bài test code &rarr;</span>
+          <span>Thực Chiến Production</span>
+        </div>
+      </a>
+
+      <!-- Guide 3: Django Framework (70 Qs) -->
+      <a href="django_interview_answers.html" class="guide-card card-django" data-keywords="django mtv mvc view template model orm query queryset serializer drf rest authentication session cookie middleware signal celery channels caching">
+        <div class="card-top">
+          <div class="card-header-flex">
+            <span class="card-icon">🦄</span>
+            <span class="count-badge">70 Câu Hỏi</span>
+          </div>
+          <h2 class="card-title">Django Framework Chuyên Sâu</h2>
+          <p class="card-desc">
+            MTV architecture, tối ưu ORM QuerySet (select_related vs prefetch_related), Custom Middleware, DRF Serializers, Auth, Signals, Background Tasks &amp; Caching.
+          </p>
+          <div class="tags-container">
+            <span class="tag">Django ORM</span>
+            <span class="tag">DRF</span>
+            <span class="tag">Middleware</span>
+            <span class="tag">Signals</span>
+            <span class="tag">Celery</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span>Khám phá cẩm nang Django &rarr;</span>
+          <span>Junior &bull; Mid &bull; Senior</span>
+        </div>
+      </a>
+
+      <!-- Guide 4: Node.js Core (100 Qs) -->
+      <a href="nodejs_interview_answers.html" class="guide-card card-node" data-keywords="nodejs node libuv event loop timer poll check close microtask macrotask stream backpressure buffer worker thread cluster v8 memory leak garbage collection">
+        <div class="card-top">
+          <div class="card-header-flex">
+            <span class="card-icon">🟢</span>
+            <span class="count-badge">100 Câu Hỏi</span>
+          </div>
+          <h2 class="card-title">Node.js Core &amp; Runtime</h2>
+          <p class="card-desc">
+            Cơ chế Libuv Event Loop 6 phases, Streams &amp; Backpressure, V8 Garbage Collection, Buffer, Worker Threads, Clustering &amp; kỹ thuật gỡ rối Memory Leak.
+          </p>
+          <div class="tags-container">
+            <span class="tag">Libuv Event Loop</span>
+            <span class="tag">Streams</span>
+            <span class="tag">Buffer</span>
+            <span class="tag">Worker Threads</span>
+            <span class="tag">V8 Profiling</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span>Khám phá cẩm nang Node.js &rarr;</span>
+          <span>Junior &bull; Mid &bull; Senior</span>
+        </div>
+      </a>
+
+      <!-- Guide 5: Express.js (58 Qs) -->
+      <a href="expressjs_interview_answers.html" class="guide-card card-express" data-keywords="express expressjs middleware route router next error handling rate limit cors helmet security jwt auth body parser microservices api gateway">
+        <div class="card-top">
+          <div class="card-header-flex">
+            <span class="card-icon">⚡</span>
+            <span class="count-badge">58 Câu Hỏi</span>
+          </div>
+          <h2 class="card-title">Express.js API &amp; Architecture</h2>
+          <p class="card-desc">
+            Router pipeline, cơ chế Middleware &amp; next(), Centralized Error Handling, Rate Limiting, CORS, Helmet security headers &amp; Microservices API Gateway patterns.
+          </p>
+          <div class="tags-container">
+            <span class="tag">Middleware Pipeline</span>
+            <span class="tag">REST API</span>
+            <span class="tag">Error Handling</span>
+            <span class="tag">Security Headers</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span>Khám phá cẩm nang Express.js &rarr;</span>
+          <span>Junior &bull; Mid &bull; Senior</span>
+        </div>
+      </a>
+
+      <!-- Guide 6: Vue.js 3 (100 Qs) -->
+      <a href="vuejs_interview_answers.html" class="guide-card card-vue" data-keywords="vue vuejs vue3 composition api reactivity ref reactive computed watch pinia vuex virtual dom diffing patch nuxt ssr keep-alive teleport suspense">
+        <div class="card-top">
+          <div class="card-header-flex">
+            <span class="card-icon">💚</span>
+            <span class="count-badge">100 Câu Hỏi</span>
+          </div>
+          <h2 class="card-title">Vue.js 3 &amp; Ecosystem</h2>
+          <p class="card-desc">
+            Bản chất Proxy Reactivity System, Composition API vs Options API, Pinia State Management, Thuật toán Virtual DOM Diffing, Nuxt 3 SSR &amp; Performance Tuning.
+          </p>
+          <div class="tags-container">
+            <span class="tag">Vue 3 Proxy</span>
+            <span class="tag">Composition API</span>
+            <span class="tag">Pinia</span>
+            <span class="tag">Virtual DOM</span>
+            <span class="tag">Nuxt SSR</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span>Khám phá cẩm nang Vue.js &rarr;</span>
+          <span>Junior &bull; Mid &bull; Senior</span>
+        </div>
+      </a>
+
+      <!-- Guide 7: Nginx, System Design & STAR Behaviour Hub -->
+      <a href="nginx_interview_answers.html" class="guide-card card-architecture" data-keywords="nginx domain reverse proxy load balancer 502 504 gcp cloud run pubsub database er diagram star behaviour interview english shopify tiktok sync audit master">
+        <div class="card-top">
+          <div class="card-header-flex">
+            <span class="card-icon">🌐</span>
+            <span class="count-badge">Master Hub</span>
+          </div>
+          <h2 class="card-title">Nginx, System Design &amp; STAR Hub</h2>
+          <p class="card-desc">
+            Master Answer Hub: DNS &amp; Nginx Reverse Proxy (fix 502/504), Cloud Run &amp; PubSub, Database ER &amp; Schema Design, Bộ kịch bản phỏng vấn STAR Tiếng Anh, Shopify &amp; TikTok product sync.
+          </p>
+          <div class="tags-container">
+            <span class="tag">Nginx Reverse Proxy</span>
+            <span class="tag">Database Design</span>
+            <span class="tag">GCP Serverless</span>
+            <span class="tag">STAR Kịch Bản</span>
+            <span class="tag">TikTok Feed Sync</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span>Xem Master Answer Hub &rarr;</span>
+          <span>Kiến Trúc &amp; Hành Vi</span>
+        </div>
+      </a>
+
+    </div>
+
+    <div id="noResults" style="display:none; text-align:center; padding: 48px 20px;">
+      <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 8px;">Không tìm thấy cẩm nang phù hợp với từ khóa.</p>
+      <p style="font-size: 0.9rem; color: #64748b;">Thử tìm kiếm với: <code>python</code>, <code>django</code>, <code>nodejs</code>, <code>express</code>, <code>vue</code>, <code>nginx</code>, <code>star</code>, <code>database</code></p>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="container" style="padding: 0;">
+      <p>🎯 <strong>Interview Master Guides Repository</strong> &bull; Quản lý bởi <a href="https://github.com/minhphuong-tmp/phongvan" target="_blank" rel="noopener">minhphuong-tmp/phongvan</a></p>
+      <p style="margin-top: 6px; font-size: 0.8rem; color: #64748b;">Toàn bộ tài liệu được thiết kế tự vận hành 100% Offline trên trình duyệt hoặc host qua GitHub Pages.</p>
+    </div>
+  </footer>
+
+  <script>
+    function handleSearch() {
+      const q = document.getElementById('globalSearch').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.guide-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const title = card.querySelector('.card-title').innerText.toLowerCase();
+        const desc = card.querySelector('.card-desc').innerText.toLowerCase();
+        const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+        const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.innerText.toLowerCase()).join(' ');
+
+        const match = !q || title.includes(q) || desc.includes(q) || keywords.includes(q) || tags.includes(q);
+
+        if (match) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    function setQuery(text) {
+      const input = document.getElementById('globalSearch');
+      input.value = text;
+      handleSearch();
+      input.focus();
+    }
+  </script>
+</body>
+</html>

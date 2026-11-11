@@ -26,7 +26,8 @@ behaviour/
 clickhouse/
 database/
 docker/
-domain/
+domain/*
+!domain/*.html
 elk/
 f/
 grafana/
@@ -46,7 +47,6 @@ scripts/
 # Ignore nested extras in python and nodejs
 python/antigravity-explorer-diff-on-click/
 python/skill-coding-rules/
-python/python_interview_answers.html
 python/python.docx
 python/github project*
 nodejs/01_JavaScript_NodeJS.docx
