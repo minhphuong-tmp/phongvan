@@ -5,52 +5,13 @@ Thumbs.db
 *.tmp
 __pycache__/
 *.pyc
+~$*.docx
 
-# Ignore all other folders and non-HTML files
-*.docx
-*.vsix
-*.txt
-*.png
-*.jpg
-*.jpeg
-*.svg
-*.json
-*.sh
-run
-setup
-stop
-
-Cloud/
-OS/
-behaviour/
-clickhouse/
-database/
-docker/
-domain/*
-!domain/*.html
-elk/
-f/
-grafana/
-k8s/
-kafka/
-link pvan/
-luồng/
-mysql/
-network/
-postgre/
-prometheus/
-rabbitmq/
-redis/
-shopify/
-scripts/
-
-# Ignore nested extras in python and nodejs
-python/antigravity-explorer-diff-on-click/
-python/skill-coding-rules/
-python/python.docx
-python/github project*
-nodejs/01_JavaScript_NodeJS.docx
-nodejs/github project*
+# Ignore heavy external cloned GitHub repos (saleor, posthog, NodeBB) & node_modules
+node_modules/
+python/github project/
+python/github project microservices/
+nodejs/github project/
 
 # Env
 .env

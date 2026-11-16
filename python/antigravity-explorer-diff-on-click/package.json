@@ -1,0 +1,82 @@
+{
+  "name": "explorer-diff-on-click",
+  "displayName": "Explorer Diff on Click",
+  "description": "Project tree on the Right Sidebar: auto-expands and highlights files staged with `git add`, auto-reloads on every index change (worktree-safe), toggled with Ctrl+R.",
+  "version": "2.0.0",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "activationEvents": [
+    "onStartupFinished",
+    "*"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "secondarySidebar": [
+        {
+          "id": "changedFilesRight",
+          "title": "Project Tree (git add)",
+          "icon": "icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "changedFilesRight": [
+        {
+          "id": "explorerDiffOnClick.changedFiles",
+          "name": "Project Tree (git add)",
+          "icon": "icon.svg",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "explorerDiffOnClick.togglePanel",
+        "key": "ctrl+r",
+        "mac": "cmd+r"
+      },
+      {
+        "command": "explorerDiffOnClick.focusRightPanel",
+        "key": "alt+g",
+        "mac": "alt+g"
+      }
+    ],
+    "commands": [
+      {
+        "command": "explorerDiffOnClick.togglePanel",
+        "title": "Toggle Project Tree Panel (git add)",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "explorerDiffOnClick.toggle",
+        "title": "Toggle Explorer Diff on Click"
+      },
+      {
+        "command": "explorerDiffOnClick.refresh",
+        "title": "Refresh Project Tree",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "explorerDiffOnClick.focusRightPanel",
+        "title": "Show Project Tree on Right Sidebar",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "explorerDiffOnClick.openAndReveal",
+        "title": "Open Diff and Reveal in Explorer"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "explorerDiffOnClick.refresh",
+          "when": "view == explorerDiffOnClick.changedFiles",
+          "group": "navigation"
+        }
+      ]
+    }
+  }
+}
